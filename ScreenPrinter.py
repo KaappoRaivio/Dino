@@ -1,10 +1,13 @@
+import time
+
 from utils import ACoord, Logger
+from sprite import Sprite
 
 filu = open("log.txt", 'w')
 
-def log(string):
+def log(*args):
     global filu
-    print(string, file=filu)
+    print(*args, file=filu)
 
 
 
@@ -14,6 +17,8 @@ class ScreenPrinter:
         self.term_dim_y = term_dim_y
 
         self.__current_buffer = {}
+
+        self.sprites = []
 
         for x in range(term_dim_x):
             for y in range(term_dim_y):
@@ -30,7 +35,7 @@ class ScreenPrinter:
         self.getCurrentScreenBuffer()[pos_x, pos_y] = char
 
     def commit(self):
-        print("\033[F" * (self.term_dim_y + 1), end="")
+        print("\033[F" * (self.term_dim_y + 2), end="")
 
         for y in range(self.term_dim_y):
             for x in range(self.term_dim_x):
@@ -40,15 +45,30 @@ class ScreenPrinter:
     def getCurrentScreenBuffer(self):
         return self.__current_buffer
 
+    def drawSprite(self, pos_x, pos_y, spr):
+        for y in range(spr.dim_y):
+            for x in range(spr.dim_x):
+                log(x, y)
+                self.changeCharacterAtPos(pos_x + x, pos_y + y, spr.getCurrentScreenBuffer()[x, y,])
+
+    def attachSprite(self, spr):
+        self.sprites.append(spr)
+        spr.setScreenPrinter(self)
+
+
+
+
+
 printer = ScreenPrinter()
-# printer.changeCharacterAtPos(79, 23, "%")
-# printer.getCurrentScreenBuffer()[79, 23] = "%"
+spr = Sprite.fromFilePath("testi.txt")
+
+# printer.drawSprite(5, 5, spr)
+printer.attachSprite(spr)
+spr.draw(5, 5)
+
 printer.commit()
 
-log("terve")
+time.sleep(1)
 
-
-for y in range(24):
-    for x in range(80):
-        printer.changeCharacterAtPos(x, y, "%")
-    printer.commit()
+spr.move(10, 10)
+printer.commit()
