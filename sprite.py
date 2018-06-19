@@ -1,4 +1,4 @@
-
+import time
 
 class Sprite:
     __transparent_char = "§"
@@ -57,26 +57,34 @@ class Sprite:
     def draw(self, pos_x, pos_y):
         if not hasattr(self, "screenPrinter"):
             raise Exception("Don't know which printer to draw in. setScreenPrinter() first.")
+        if self.drawn:
+            raise Exception("Cannot draw twice!")
 
         self.pos_x = pos_x
         self.pos_y = pos_y
 
         for y in range(self.dim_y):
             for x in range(self.dim_x):
+
                 if self.getCurrentScreenBuffer()[x, y,] == self.getTransparentChar(): # Transparency
                     continue
-                else:
-                    self.underlying[x, y,] = self.screenPrinter.getCurrentScreenBuffer()[x, y,]
-                    self.screenPrinter.changeCharacterAtPos(pos_x + x, pos_y + y, self.getCurrentScreenBuffer()[x, y,])
+
+                self.underlying[x, y,] = self.screenPrinter.getCurrentScreenBuffer()[self.pos_x + x, self.pos_y + y,]
+                self.screenPrinter.changeCharacterAtPos(pos_x + x, pos_y + y, self.getCurrentScreenBuffer()[x, y,])
 
         self.drawn = True
 
     def undraw(self):
+        if not self.drawn:
+            raise Exception("Cannot undraw twice!")
         for y in range(self.dim_y):
             for x in range(self.dim_x):
-                self.underlying[x, y,] = self.screenPrinter.getCurrentScreenBuffer()[x, y,]
-                self.screenPrinter.changeCharacterAtPos(self.pos_x + x, self.pos_y + y, self.underlying[x, y,])
+                if self.getCurrentScreenBuffer()[x, y,] == self.getTransparentChar():
+                    continue
+                else:
+                    self.screenPrinter.changeCharacterAtPos(self.pos_x + x, self.pos_y + y, self.underlying[x, y,])
 
+        self.underlying = {}
         self.drawn = False
 
     def move(self, delta_x, delta_y):
@@ -84,7 +92,11 @@ class Sprite:
             raise Exception("Cannot move an undrawn sprite!")
 
         self.undraw()
+        # self.screenPrinter.commit()
+        # time.sleep(1)
         self.draw(self.pos_x + delta_x, self.pos_y + delta_y)
+        # self.screenPrinter.commit()
+        # time.sleep(1)
 
     def moveAbsolute(self, x, y):
         if not self.drawn:

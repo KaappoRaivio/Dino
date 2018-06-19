@@ -36,7 +36,7 @@ def log(*args):
 
 
 class ScreenPrinter:
-    def __init__(self, path_to_background, term_dim_x=80, term_dim_y=24):
+    def __init__(self, path_to_background, term_dim_x=100, term_dim_y=24):
         self.term_dim_x = term_dim_x
         self.term_dim_y = term_dim_y
 
@@ -54,6 +54,7 @@ class ScreenPrinter:
         for y in range(len(lines)):
             for x in range(len(lines[y])):
                 temp_buffer[x, y,] = lines[y][x]
+                # temp_buffer[x, y,] = f"{y % 10}"
 
         dim_x = len(lines[0])
         dim_y = len(lines) - 1
@@ -71,7 +72,7 @@ class ScreenPrinter:
         self.getCurrentScreenBuffer()[pos_x, pos_y] = char
 
     def commit(self):
-        print("\033[F" * (self.term_dim_y + 2), end="")
+        print("\033[F" * (self.term_dim_y + 2), end="", flush=False)
 
         for y in range(self.term_dim_y):
             for x in range(self.term_dim_x):
@@ -100,25 +101,32 @@ spr = Sprite.fromFilePath("testi.txt")
 printer.attachSprite(spr)
 dino = Dino(spr)
 
-# threading.Thread(target = getch.thread1).start()
-
+# while True:
+#     spr.draw(6, 12)
+#     printer.commit()
+#     time.sleep(1)
+#     spr.undraw()
+#     printer.commit()
+#     time.sleep(1)
+#
 
 while True:
-    # print(näppäin)
-    time.sleep(0.1)
-
+    # for i in range(10):
+    #     spr.move(0, -1)
+    #     printer.commit()
+    #     time.sleep(0.1)
+    # for i in range(10, 0, -1):
+    #     spr.move(0, 1)
+    #     printer.commit()
+    #     time.sleep(0.1)
     dino.update()
     printer.commit()
+    time.sleep(0.1)
 
-# while True:
-#     for i in range(6):
-#         spr.move(0, -2)
-#         printer.commit()
-#         time.sleep(0.1)
-#     for i in range(6):
-#         spr.move(0, 2)
-#         printer.commit()
-#         time.sleep(0.1)
-
+# spr.draw(0, 0)
+# printer.commit()
+# time.sleep(1)
+# spr.undraw()
+# printer.commit()
 
 filu.close()
