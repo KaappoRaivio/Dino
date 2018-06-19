@@ -1,6 +1,19 @@
 
 
 class Sprite:
+    __transparent_char = "§"
+
+    @classmethod
+    def setTransparentChar(cls, val):
+        if not isinstance(val, str):
+            raise Exception("Not a string!")
+
+        cls.__transparent_char = val
+
+    @classmethod
+    def getTransparentChar(cls):
+        return cls.__transparent_char
+
     def __init__(self, screenbuffer, dim_x, dim_y, path_to_file="Path not available"):
         self.__current_buffer = screenbuffer
         self.path_to_file = path_to_file
@@ -50,8 +63,11 @@ class Sprite:
 
         for y in range(self.dim_y):
             for x in range(self.dim_x):
-                self.underlying[x, y,] = self.screenPrinter.getCurrentScreenBuffer()[x, y,]
-                self.screenPrinter.changeCharacterAtPos(pos_x + x, pos_y + y, self.getCurrentScreenBuffer()[x, y,])
+                if self.getCurrentScreenBuffer()[x, y,] == self.getTransparentChar(): # Transparency
+                    continue
+                else:
+                    self.underlying[x, y,] = self.screenPrinter.getCurrentScreenBuffer()[x, y,]
+                    self.screenPrinter.changeCharacterAtPos(pos_x + x, pos_y + y, self.getCurrentScreenBuffer()[x, y,])
 
         self.drawn = True
 

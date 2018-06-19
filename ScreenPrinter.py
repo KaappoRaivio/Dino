@@ -22,7 +22,7 @@ class ScreenPrinter:
 
         for x in range(term_dim_x):
             for y in range(term_dim_y):
-                self.__current_buffer[x, y,] = f"{x % 10}"
+                self.__current_buffer[x, y,] = f" "
 
     def changeCharacterAtPos(self, pos_x, pos_y, char):
         if len(char) != 1:
