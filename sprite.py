@@ -85,3 +85,10 @@ class Sprite:
 
         self.undraw()
         self.draw(self.pos_x + delta_x, self.pos_y + delta_y)
+
+    def moveAbsolute(self, x, y):
+        if not self.drawn:
+            raise Exception("Cannot move an undrawn sprite!")
+
+        self.undraw()
+        self.draw(x, y)
