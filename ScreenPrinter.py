@@ -64,11 +64,19 @@ spr = Sprite.fromFilePath("testi.txt")
 
 # printer.drawSprite(5, 5, spr)
 printer.attachSprite(spr)
-spr.draw(5, 5)
+spr.draw(6, 12)
 
 printer.commit()
 
-time.sleep(1)
+while True:
+    for i in range(6):
+        spr.move(0, -2)
+        printer.commit()
+        time.sleep(0.1)
+    for i in range(6):
+        spr.move(0, 2)
+        printer.commit()
+        time.sleep(0.1)
 
-spr.move(10, 10)
-printer.commit()
+
+filu.close()
