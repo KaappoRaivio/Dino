@@ -36,17 +36,29 @@ def log(*args):
 
 
 class ScreenPrinter:
-    def __init__(self, term_dim_x=80, term_dim_y=24):
+    def __init__(self, path_to_background, term_dim_x=80, term_dim_y=24):
         self.term_dim_x = term_dim_x
         self.term_dim_y = term_dim_y
 
-        self.__current_buffer = {}
-
         self.sprites = []
 
-        for x in range(term_dim_x):
-            for y in range(term_dim_y):
-                self.__current_buffer[x, y,] = f" "
+        try:
+            with open(path_to_background, 'r') as file:
+                raw_data = file.read()
+        except FileNotFoundError:
+            raise FileNotFoundError("Invalid filepath!")
+
+        lines = raw_data.split("\n")
+        temp_buffer = {}
+
+        for y in range(len(lines)):
+            for x in range(len(lines[y])):
+                temp_buffer[x, y,] = lines[y][x]
+
+        dim_x = len(lines[0])
+        dim_y = len(lines) - 1
+
+        self.__current_buffer = temp_buffer
 
     def changeCharacterAtPos(self, pos_x, pos_y, char):
         if len(char) != 1:
@@ -83,7 +95,7 @@ class ScreenPrinter:
 
 
 
-printer = ScreenPrinter()
+printer = ScreenPrinter("background.txt")
 spr = Sprite.fromFilePath("testi.txt")
 printer.attachSprite(spr)
 dino = Dino(spr)
