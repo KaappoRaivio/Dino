@@ -76,5 +76,5 @@ class Dino:
             if other is self.spr:
                 continue
             if (7 <= other.pos_x <= 21) and self.pos_y >= 9:
-                print(f"Collision:\n\t{other} with {self}, height: {self.pos_y}")
+                
                 return True

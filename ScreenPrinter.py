@@ -5,14 +5,6 @@ from sprite import Sprite
 from dino import Dino
 from cactus import Cactus
 
-# filu = open("log.txt", 'w')
-#
-# def log(*args):
-#     global filu
-#     print(*args, file=filu)
-#
-
-
 class ScreenPrinter:
     def __init__(self, path_to_background, term_dim_x=100, term_dim_y=24):
         self.term_dim_x = term_dim_x

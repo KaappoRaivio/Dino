@@ -48,7 +48,6 @@ class Sprite:
         dim_x = len(lines[0])
         dim_y = len(lines) - 1
 
-        print(dim_x, dim_y)
 
         return cls(temp_buffer, dim_x, dim_y, path_to_file=path_to_file)
 
@@ -112,5 +111,4 @@ class Sprite:
         self.draw(x, y)
 
     def attachToObject(self, obj):
-        print(f"attaching {obj} to {self}")
         self.object = obj
