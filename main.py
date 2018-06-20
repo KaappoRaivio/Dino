@@ -22,7 +22,7 @@ printer.attachSprite(cacspr)
 cactus = Cactus(cacspr)
 
 printer.attachSprite(spr)
-dino = Dino(spr, strength=10, gravity=4)
+dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY)
 
 sprites = []
 cacti = []
