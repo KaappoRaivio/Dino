@@ -42,6 +42,9 @@ class Dino:
         self.spr.move(0, -self.speed)
         self.speed -= self.gravity
 
+        self.pos_x = self.spr.pos_x
+        self.pos_y = self.spr.pos_y
+
         # if self.height < 0:
         #     self.height = 0
         #     self.spr.move(6, 12)
@@ -50,17 +53,28 @@ class Dino:
             self.speed = 0
 
     def checkForCollisions(self):
+        # for other in self.spr.screenPrinter.sprites:
+        #     if other is self.spr:
+        #         continue
+        #
+        #     for selfpos in self.spr.getCurrentScreenBuffer():
+        #         for otherpos in other.getCurrentScreenBuffer():
+        #             absselfpos = (selfpos[0] + self.pos_x, selfpos[1] + self.pos_y)
+        #             absotherpos = (otherpos[0] + other.pos_x, otherpos[1] + other.pos_y)
+        #
+        #             if absselfpos == absotherpos:
+        #
+        #                 print(f"Collision:\n\t{other} with {self}, pos: {selfpos}, charself: {self.spr.getCurrentScreenBuffer()[selfpos]}, charother: {other.getCurrentScreenBuffer()[otherpos]}")
+        #                 # self.spr.screenPrinter.changeCharacterAtPos(*selfpos, '\033[31m \033[37m', safe=False)
+        #                 self.spr.screenPrinter.changeCharacterAtPos(*selfpos, 'asd', safe=False)
+        #
+        #                 return True
+        # else:
+        #     return False
+
         for other in self.spr.screenPrinter.sprites:
             if other is self.spr:
                 continue
-
-            for selfpos in self.spr.getCurrentScreenBuffer():
-                for otherpos in other.getCurrentScreenBuffer():
-                    selfpos = (selfpos[0] + self.pos_x, selfpos[1] + self.pos_y)
-                    otherpos = (otherpos[0] + other.pos_x, otherpos[1] + other.pos_y)
-
-                    if selfpos == otherpos:
-                        print(f"Collision:\n\t{other} with {self}, pos: {selfpos}")
-                        return True
-        else:
-            return False
+            if (7 <= other.pos_x <= 21) and self.pos_y >= 9:
+                print(f"Collision:\n\t{other} with {self}, height: {self.pos_y}")
+                return True

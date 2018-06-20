@@ -5,12 +5,12 @@ from sprite import Sprite
 from dino import Dino
 from cactus import Cactus
 
-filu = open("log.txt", 'w')
-
-def log(*args):
-    global filu
-    print(*args, file=filu)
-
+# filu = open("log.txt", 'w')
+#
+# def log(*args):
+#     global filu
+#     print(*args, file=filu)
+#
 
 
 class ScreenPrinter:
@@ -39,8 +39,8 @@ class ScreenPrinter:
 
         self.__current_buffer = temp_buffer
 
-    def changeCharacterAtPos(self, pos_x, pos_y, char):
-        if len(char) != 1:
+    def changeCharacterAtPos(self, pos_x, pos_y, char, safe=True):
+        if len(char) != 1 and safe:
             raise Exception("Invalid char!")
 
 
@@ -75,39 +75,4 @@ class ScreenPrinter:
             i.object.update()
 
 
-
-
-
-
-
-printer = ScreenPrinter("background.txt")
-spr = Sprite.fromFilePath("testi.txt")
-cacspr = Sprite.fromFilePath("obstacle.txt")
-
-printer.attachSprite(cacspr)
-cactus = Cactus(cacspr)
-
-printer.attachSprite(spr)
-dino = Dino(spr)
-
-sprites = []
-cacti = []
-
-counter = 1
-
-while True:
-    if counter % 10 == 0:
-        sprites.append(Sprite.fromFilePath("obstacle.txt"))
-        printer.attachSprite(sprites[-1])
-        cacti.append(Cactus(sprites[-1]))
-
-    printer.commit()
-    time.sleep(0.1)
-    printer.updateSprites()
-
-    counter += 1
-
-    if dino.checkForCollisions():
-        quit()
-
-filu.close()
+# filu.close()
