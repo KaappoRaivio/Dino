@@ -2,6 +2,7 @@ import time
 
 class Sprite:
     __transparent_char = "§"
+    ID = 0
 
     @classmethod
     def setTransparentChar(cls, val):
@@ -22,6 +23,9 @@ class Sprite:
 
         self.underlying = {}
         self.drawn = False
+
+        self.ID += 1
+        self.__ID = self.ID
 
     def __str__(self):
         return f"Sprite('{self.path_to_file}')"
@@ -106,3 +110,7 @@ class Sprite:
 
         self.undraw()
         self.draw(x, y)
+
+    def attachToObject(self, obj):
+        print(f"attaching {obj} to {self}")
+        self.object = obj

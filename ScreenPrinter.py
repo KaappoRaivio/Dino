@@ -70,6 +70,12 @@ class ScreenPrinter:
         self.sprites.append(spr)
         spr.setScreenPrinter(self)
 
+    def updateSprites(self):
+        for i in self.sprites:
+            i.object.update()
+
+
+
 
 
 
@@ -84,10 +90,24 @@ cactus = Cactus(cacspr)
 printer.attachSprite(spr)
 dino = Dino(spr)
 
+sprites = []
+cacti = []
+
+counter = 1
+
 while True:
-    dino.update()
-    cactus.update()
+    if counter % 10 == 0:
+        sprites.append(Sprite.fromFilePath("obstacle.txt"))
+        printer.attachSprite(sprites[-1])
+        cacti.append(Cactus(sprites[-1]))
+
     printer.commit()
     time.sleep(0.1)
+    printer.updateSprites()
+
+    counter += 1
+
+    if dino.checkForCollisions():
+        quit()
 
 filu.close()

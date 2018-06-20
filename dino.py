@@ -1,15 +1,20 @@
 from pynput import keyboard
 
+import time
 
 class Dino:
-    def __init__(self, spr, strength=6, gravity=1):
+    def __init__(self, spr, strength=6, gravity=2, pos_x=6, pos_y=12):
+
         self.spr = spr
-        self.spr.draw(6, 12)
+        self.spr.attachToObject(self)
+        self.spr.draw(pos_x, pos_y)
 
         self.strength = strength
         self.gravity = gravity
         self.height = 0
         self.speed = 0
+        self.pos_x  = pos_x
+        self.pos_y = pos_y
 
         def on_press(key):
 
@@ -43,3 +48,19 @@ class Dino:
 
         if self.height == 0:
             self.speed = 0
+
+    def checkForCollisions(self):
+        for other in self.spr.screenPrinter.sprites:
+            if other is self.spr:
+                continue
+
+            for selfpos in self.spr.getCurrentScreenBuffer():
+                for otherpos in other.getCurrentScreenBuffer():
+                    selfpos = (selfpos[0] + self.pos_x, selfpos[1] + self.pos_y)
+                    otherpos = (otherpos[0] + other.pos_x, otherpos[1] + other.pos_y)
+
+                    if selfpos == otherpos:
+                        print(f"Collision:\n\t{other} with {self}, pos: {selfpos}")
+                        return True
+        else:
+            return False
