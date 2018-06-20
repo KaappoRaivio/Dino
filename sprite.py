@@ -66,8 +66,14 @@ class Sprite:
         for y in range(self.dim_y):
             for x in range(self.dim_x):
 
-                if self.getCurrentScreenBuffer()[x, y,] == self.getTransparentChar(): # Transparency
+                if not (0 <= self.pos_x + x < self.screenPrinter.term_dim_x) or not (0 <= self.pos_y + y < self.screenPrinter.term_dim_y):
+                    self.underlying[x, y,] = self.getTransparentChar()
                     continue
+
+                if self.getCurrentScreenBuffer()[x, y,] == self.getTransparentChar(): # Transparency
+                    self.underlying[x, y,] = self.getTransparentChar()
+                    continue
+
 
                 self.underlying[x, y,] = self.screenPrinter.getCurrentScreenBuffer()[self.pos_x + x, self.pos_y + y,]
                 self.screenPrinter.changeCharacterAtPos(pos_x + x, pos_y + y, self.getCurrentScreenBuffer()[x, y,])
@@ -92,11 +98,7 @@ class Sprite:
             raise Exception("Cannot move an undrawn sprite!")
 
         self.undraw()
-        # self.screenPrinter.commit()
-        # time.sleep(1)
         self.draw(self.pos_x + delta_x, self.pos_y + delta_y)
-        # self.screenPrinter.commit()
-        # time.sleep(1)
 
     def moveAbsolute(self, x, y):
         if not self.drawn:

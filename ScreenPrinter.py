@@ -1,31 +1,9 @@
 import time
-import threading
 
 from utils import ACoord, Logger
 from sprite import Sprite
 from dino import Dino
-
-from pynput import keyboard
-
-näppäin = "asd"
-
-# def on_press(key):
-#     global näppäin
-#
-#     try: k = key.char # single-char keys
-#     except: k = key.name # other keys
-#
-#     if key == keyboard.Key.esc: return False # stop listener
-#
-#     if k in ['1', '2', 'left', 'right']: # keys interested
-#         # self.keys.append(k) # store it in global-like variable
-#         # print('Key pressed: ' + k)
-#         näppäin = k
-#         # return False # remove this if want more keys
-#
-# lis = keyboard.Listener(on_press=on_press)
-# lis.start() # start to listen on a separate thread
-# # lis.join() # no this if main thread is polling self.keys
+from cactus import Cactus
 
 filu = open("log.txt", 'w')
 
@@ -98,35 +76,18 @@ class ScreenPrinter:
 
 printer = ScreenPrinter("background.txt")
 spr = Sprite.fromFilePath("testi.txt")
+cacspr = Sprite.fromFilePath("obstacle.txt")
+
+printer.attachSprite(cacspr)
+cactus = Cactus(cacspr)
+
 printer.attachSprite(spr)
 dino = Dino(spr)
 
-# while True:
-#     spr.draw(6, 12)
-#     printer.commit()
-#     time.sleep(1)
-#     spr.undraw()
-#     printer.commit()
-#     time.sleep(1)
-#
-
 while True:
-    # for i in range(10):
-    #     spr.move(0, -1)
-    #     printer.commit()
-    #     time.sleep(0.1)
-    # for i in range(10, 0, -1):
-    #     spr.move(0, 1)
-    #     printer.commit()
-    #     time.sleep(0.1)
     dino.update()
+    cactus.update()
     printer.commit()
     time.sleep(0.1)
-
-# spr.draw(0, 0)
-# printer.commit()
-# time.sleep(1)
-# spr.undraw()
-# printer.commit()
 
 filu.close()
