@@ -1,11 +1,11 @@
-DINO_STRENGTH = 10
-DINO_GRAVITY = 2
+DINO_STRENGTH = 5
+DINO_GRAVITY = 0.5
 CACTUS_PROBABILITY = 5 # in percents per frame
 WINDOW_DIM_X = 204
-WINDOW_DIM_Y = 55
+WINDOW_DIM_Y = 52
 SPAWN_GAIN = 0.05
-CACTUS_MAX_SPEED = 20
-CACTUS_MIN_SPEED = 5
+CACTUS_MAX_SPEED = 2
+CACTUS_MIN_SPEED = 1
 
 
 import time
@@ -23,9 +23,6 @@ from ScreenPrinter import ScreenPrinter
 printer = ScreenPrinter("background.txt", term_dim_x=WINDOW_DIM_X, term_dim_y=WINDOW_DIM_Y)
 spr = Sprite.fromFilePath("testi.txt")
 cacspr = Sprite.fromFilePath("obstacle.txt")
-
-printer.attachSprite(cacspr)
-cactus = Cactus(cacspr, pos_y=WINDOW_DIM_Y - 8)
 
 printer.attachSprite(spr)
 dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12)
@@ -57,7 +54,7 @@ while True:
 
     # Score
 
-    printer.putText(printer.term_dim_x - 5 - len(str(counter)), 2, str(counter))
+    printer.putText(printer.term_dim_x - 5 - len(str(counter)), 8, str(counter))
 
     if dino.checkForCollisions():
         printer.putText(12, 8, "Game over!")

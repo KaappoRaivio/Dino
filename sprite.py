@@ -112,3 +112,19 @@ class Sprite:
 
     def attachToObject(self, obj):
         self.object = obj
+
+    @property
+    def pos_x(self):
+        return self.__pos_x
+
+    @pos_x.setter
+    def pos_x(self, val):
+        self.__pos_x = int(val)
+
+    @property
+    def pos_y(self):
+        return self.__pos_y
+
+    @pos_y.setter
+    def pos_y(self, val):
+        self.__pos_y = int(val)

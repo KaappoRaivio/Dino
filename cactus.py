@@ -18,8 +18,7 @@ class Cactus:
         self.spr.move(-self.speed, 0)
         self.pos_x -= self.speed
 
-        if self.pos_x < -3:
-                print("moi")
+        if self.pos_x < -5: # Over the screen border
                 self.spr.screenPrinter.sprites.remove(self.spr)
                 del self.spr
                 del self
