@@ -23,7 +23,7 @@ class Dino:
 
             if key == keyboard.Key.esc: return False # stop listener
 
-            if k in ['up']: # keys interested
+            if k in ['up', 'space']: # keys interested
                 self.jump()
 
 

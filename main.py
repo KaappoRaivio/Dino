@@ -3,7 +3,9 @@ DINO_GRAVITY = 2
 CACTUS_PROBABILITY = 5 # in percents per frame
 WINDOW_DIM_X = 183
 WINDOW_DIM_Y = 55
-
+SPAWN_GAIN = 0.05
+CACTUS_MAX_SPEED = 10
+CACTUS_MIN_SPEED = 5
 
 
 import time
@@ -32,18 +34,22 @@ sprites = []
 cacti = []
 
 counter = 0
+latest = 0
 
 while True:
-    if random.randint(0, 100) in list(range(CACTUS_PROBABILITY)):
+    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY * counter * SPAWN_GAIN))) and latest > 6:
         sprites.append(Sprite.fromFilePath("obstacle.txt"))
         printer.attachSprite(sprites[-1])
-        cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
+        cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8, speed=random.randint(1, 5)))
+        Cactus.changeSpeed(random.randint(CACTUS_MIN_SPEED, CACTUS_MAX_SPEED))
+        latest = -1
 
     printer.commit()
     time.sleep(0.05)
     printer.updateSprites()
 
     counter += 1
+    latest += 1
 
     # Score
 
