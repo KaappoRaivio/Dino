@@ -28,6 +28,14 @@ class Cactus:
     #     self.spr.undraw()
     #     del self
 
+    @property
+    def speed(self):
+        return self.__speed
+
+    @speed.setter
+    def speed(self, val):
+        self.__speed = int(val)
+
     @classmethod
     def changeSpeed(cls, new_speed):
         for cactus in cls.cacti:

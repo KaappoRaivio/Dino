@@ -1,13 +1,13 @@
 DINO_STRENGTH = 7
 DINO_GRAVITY = 2
-CACTUS_PROBABILITY = 5 # in percents per frame
+CACTUS_PROBABILITY = 1 # in percents per frame
+SPAWN_GAIN = 0.0005
 WINDOW_DIM_X = 204
 WINDOW_DIM_Y = 52
-SPAWN_GAIN = 0.05
 CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
-FRAMERATE = 10
-SPEED_GAIN = 0.0001
+FRAMERATE = 60
+SPEED_GAIN = 0.00001
 
 
 import time
@@ -40,13 +40,14 @@ speed = 3
 while True:
     cycle_beginning = time.time()
 
-    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY * counter * SPAWN_GAIN))) and latest > 6:
+
+    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY * counter ** SPAWN_GAIN))) and latest > 6:
 
         sprites.append(Sprite.fromFilePath("obstacle.txt"))
         printer.attachSprite(sprites[-1])
-        cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8, speed=random.randint(1, 5)))
+        cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
 
-        speed += int(counter ** 2 * SPEED_GAIN)
+        speed += int(counter ** 1.2 * SPEED_GAIN)
         # Cactus.changeSpeed(random.randint(CACTUS_MIN_SPEED, CACTUS_MAX_SPEED))
         Cactus.changeSpeed(speed)
 
@@ -60,8 +61,9 @@ while True:
     latest += 1
 
     # Score
+    scorestring = f"Score: {counter}"
 
-    printer.putText(printer.term_dim_x - 5 - len(str(counter)), 8, str(counter))
+    printer.putText(printer.term_dim_x - 5 - len(scorestring), 8, scorestring)
 
     if dino.checkForCollisions():
         printer.putText(12, 8, "Game over!")
