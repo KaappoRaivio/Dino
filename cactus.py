@@ -20,9 +20,12 @@ class Cactus:
 
         if self.pos_x < -3:
                 print("moi")
+                self.spr.screenPrinter.sprites.remove(self.spr)
+                del self.spr
                 del self
 
     # def __del__(self):
+    #     self.cacti.remove(self)
     #     self.spr.undraw()
     #     del self
 
