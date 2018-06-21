@@ -6,7 +6,7 @@ from dino import Dino
 from cactus import Cactus
 
 class ScreenPrinter:
-    def __init__(self, path_to_background, term_dim_x=100, term_dim_y=24):
+    def __init__(self, path_to_background, term_dim_x=183, term_dim_y=55):
         self.term_dim_x = term_dim_x
         self.term_dim_y = term_dim_y
 
@@ -21,10 +21,10 @@ class ScreenPrinter:
         lines = raw_data.split("\n")
         temp_buffer = {}
 
-        for y in range(len(lines)):
-            for x in range(len(lines[y])):
-                temp_buffer[x, y,] = lines[y][x]
-                # temp_buffer[x, y,] = f"{y % 10}"
+        for y in range(term_dim_y):
+            for x in range(term_dim_x):
+                # temp_buffer[x, y,] = lines[y][x]
+                temp_buffer[x, y,] = f" " if y != self.term_dim_y - 3 else "░"
 
         dim_x = len(lines[0])
         dim_y = len(lines) - 1

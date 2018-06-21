@@ -1,6 +1,10 @@
 DINO_STRENGTH = 10
-DINO_GRAVITY = 4
+DINO_GRAVITY = 2
 CACTUS_PROBABILITY = 5 # in percents per frame
+WINDOW_DIM_X = 183
+WINDOW_DIM_Y = 55
+
+
 
 import time
 import random
@@ -14,15 +18,15 @@ from ScreenPrinter import ScreenPrinter
 
 
 
-printer = ScreenPrinter("background.txt")
+printer = ScreenPrinter("background.txt", term_dim_x=WINDOW_DIM_X, term_dim_y=WINDOW_DIM_Y)
 spr = Sprite.fromFilePath("testi.txt")
 cacspr = Sprite.fromFilePath("obstacle.txt")
 
 printer.attachSprite(cacspr)
-cactus = Cactus(cacspr)
+cactus = Cactus(cacspr, pos_y=WINDOW_DIM_Y - 8)
 
 printer.attachSprite(spr)
-dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY)
+dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12)
 
 sprites = []
 cacti = []
@@ -33,7 +37,7 @@ while True:
     if random.randint(0, 100) in list(range(CACTUS_PROBABILITY)):
         sprites.append(Sprite.fromFilePath("obstacle.txt"))
         printer.attachSprite(sprites[-1])
-        cacti.append(Cactus(sprites[-1]))
+        cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
 
     printer.commit()
     time.sleep(0.05)

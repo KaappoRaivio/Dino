@@ -75,6 +75,6 @@ class Dino:
         for other in self.spr.screenPrinter.sprites:
             if other is self.spr:
                 continue
-            if (7 <= other.pos_x <= 21) and self.pos_y >= 9:
-                
+            if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
+
                 return True
