@@ -3,7 +3,7 @@ from pynput import keyboard
 import time
 
 class Dino:
-    def __init__(self, spr, strength=6, gravity=2, pos_x=6, pos_y=12):
+    def __init__(self, spr, strength=6, gravity=2, pos_x=6, pos_y=12, collision_logic=True):
 
         self.spr = spr
         self.spr.attachToObject(self)
@@ -15,6 +15,7 @@ class Dino:
         self.speed = 0
         self.pos_x  = pos_x
         self.pos_y = pos_y
+        self.collision_logic = collision_logic
 
         def on_press(key):
 
@@ -53,6 +54,8 @@ class Dino:
             self.speed = 0
 
     def checkForCollisions(self):
+        if not self.collision_logic:
+            return False
         # for other in self.spr.screenPrinter.sprites:
         #     if other is self.spr:
         #         continue
