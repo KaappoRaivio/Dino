@@ -18,6 +18,8 @@ class Cactus:
         self.spr.move(-self.speed, 0)
         self.pos_x -= self.speed
 
+        self.reportCollision()
+
         if self.pos_x < -5: # Over the screen border
                 self.spr.screenPrinter.sprites.remove(self.spr)
                 del self.spr
@@ -40,3 +42,16 @@ class Cactus:
     def changeSpeed(cls, new_speed):
         for cactus in cls.cacti:
             cactus.speed = new_speed
+
+    def reportCollision(self):
+        for coordinate, char in self.spr.getCurrentScreenBuffer().items():
+
+            coordinate = (coordinate[0] + self.spr.pos_x, coordinate[1] + self.pos_y) #convertabsolute
+
+            if char == self.spr.getTransparentChar():
+                continue
+            else:
+                if coordinate not in self.spr.screenPrinter.collision_matrix:
+                    self.spr.screenPrinter.collision_matrix.append(coordinate)
+                else:
+                    print("Expected collision!")

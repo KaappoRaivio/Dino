@@ -11,6 +11,7 @@ class ScreenPrinter:
         self.term_dim_y = term_dim_y
 
         self.sprites = []
+        self.collision_matrix = []
 
         try:
             with open(path_to_background, 'r') as file:

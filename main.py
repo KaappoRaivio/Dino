@@ -1,12 +1,12 @@
-DINO_STRENGTH = 7
-DINO_GRAVITY = 2
+DINO_STRENGTH = 5
+DINO_GRAVITY = 1
 CACTUS_PROBABILITY = 1 # in percents per frame
 SPAWN_GAIN = 0.0005
 WINDOW_DIM_X = 204
 WINDOW_DIM_Y = 52
 CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
-FRAMERATE = 60
+FRAMERATE = 30
 SPEED_GAIN = 0.00001
 
 
@@ -27,7 +27,7 @@ spr = Sprite.fromFilePath("testi.txt")
 cacspr = Sprite.fromFilePath("obstacle.txt")
 
 printer.attachSprite(spr)
-dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=False)
+dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=True)
 
 sprites = []
 cacti = []

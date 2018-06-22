@@ -75,8 +75,38 @@ class Dino:
         # else:
         #     return False
 
-        for other in self.spr.screenPrinter.sprites:
-            if other is self.spr:
+        # for other in self.spr.screenPrinter.sprites:
+        #     if other is self.spr:
+        #         continue
+        #     if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
+        #         return True
+
+        for coordinate, char in self.spr.getCurrentScreenBuffer().items():
+            if char == self.spr.getTransparentChar():
                 continue
-            if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
+            abs_coordinate = (coordinate[0] + self.pos_x, coordinate[1] + self.pos_y)
+
+            if abs_coordinate in self.spr.screenPrinter.collision_matrix:
+                self.spr.screenPrinter.collision_matrix = []
                 return True
+        else:
+            self.spr.screenPrinter.collision_matrix = []    
+            return False
+
+
+
+        @property
+        def pos_x(self):
+            return self.spr.pos_x
+
+        @pos_x.setter
+        def pos_x(self, val):
+            pass
+
+        @property
+        def pos_y(self):
+            return self.spr.pos_y
+
+        @pos_y.setter
+        def pos_y(self, val):
+            pass
