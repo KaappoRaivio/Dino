@@ -31,6 +31,8 @@ class Dino:
                 self.endCrouch()
 
             if k in ['down']:
+                if not self.pos_y - self.spr.dim_y == 0:
+                    self.speed = -5
                 self.startCrouch()
 
             return True

@@ -37,22 +37,29 @@ latest = 0
 
 speed = 3
 
+def makeCactus(screen_printer, path):
+    temp_sprite = Sprite.fromFilePath(path)
+    screen_printer.attachSprite(temp_sprite)
+    return Cactus(temp_sprite, pos_y=WINDOW_DIM_Y - 8)
+
 
 while True:
     cycle_beginning = time.time()
 
 
     if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY + counter * SPAWN_GAIN))) and latest > 6:
+        cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
 
-        sprites.append(Sprite.fromFilePath("resources/cactus/cactus.txt"))
-        printer.attachSprite(sprites[-1])
-        cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
+        # sprites.append(Sprite.fromFilePath("resources/cactus/cactus.txt"))
+        # printer.attachSprite(sprites[-1])
+        # cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
 
-        Cactus.changeSpeed(speed)
 
         latest = -1
 
     speed = int(5 + counter * SPEED_GAIN)
+    Cactus.changeSpeed(speed)
+
 
 
     printer.commit()
