@@ -15,11 +15,25 @@ class Sprite:
     def getTransparentChar(cls):
         return cls.__transparent_char
 
+    @staticmethod
+    def getDimensFromScreenbuffer(screenbuffer):
+        max_x = 0
+        max_y = 0
+
+        for i in screenbuffer:
+            if i[0] > max_x:
+                max_x = i[0]
+            if i[1] > max_y:
+                max_y = i[1]
+
+        return max_x, max_y,
+
+
     def __init__(self, screenbuffer, dim_x, dim_y, path_to_file="Path not available"):
         self.__current_buffer = screenbuffer
         self.path_to_file = path_to_file
-        self.dim_x = dim_x
-        self.dim_y = dim_y
+
+        self.dim_x, self.dim_y = Sprite.getDimensFromScreenbuffer(screenbuffer)
 
         self.underlying = {}
         self.drawn = False
@@ -128,3 +142,21 @@ class Sprite:
     @pos_y.setter
     def pos_y(self, val):
         self.__pos_y = int(val)
+
+
+path_to_file = "dino.txt"
+
+try:
+    with open(path_to_file, 'r') as file:
+        raw_data = file.read()
+except FileNotFoundError:
+    raise FileNotFoundError("Invalid filepath!")
+
+lines = raw_data.split("\n")
+temp_buffer = {}
+
+for y in range(len(lines)):
+    for x in range(len(lines[y])):
+        temp_buffer[x, y,] = lines[y][x]
+
+print(Sprite.getDimensFromScreenbuffer(temp_buffer))
