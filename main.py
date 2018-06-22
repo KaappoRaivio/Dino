@@ -63,6 +63,7 @@ while True:
 
         latest = -1
 
+    print(printer.collision_matrix)
 
     printer.commit()
     printer.updateSprites()

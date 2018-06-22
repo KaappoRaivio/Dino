@@ -44,6 +44,7 @@ class Cactus:
             cactus.speed = new_speed
 
     def reportCollision(self):
+        print("mo")
         for coordinate, char in self.spr.getCurrentScreenBuffer().items():
 
             coordinate = (coordinate[0] + self.spr.pos_x, coordinate[1] + self.pos_y) #convertabsolute

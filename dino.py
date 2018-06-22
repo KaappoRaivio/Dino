@@ -99,8 +99,20 @@ class Dino:
         # else:
         #     return False
 
-        for other in self.spr.screenPrinter.sprites:
-            if other is self.spr:
-                continue
-            if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
-                return True
+        # for other in self.spr.screenPrinter.sprites:
+        #     if other is self.spr:
+        #         continue
+        #     if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
+        #         return True
+
+        for candinate in self.spr.screenPrinter.collision_matrix:
+            for pos, char in self.spr.getCurrentScreenBuffer().items():
+                if char == self.spr.getTransparentChar():
+                    continue
+
+                if pos == candinate:
+                    self.spr.screenPrinter.collision_matrix = []
+                    return True
+        else:
+            self.spr.screenPrinter.collision_matrix = []
+            return False
