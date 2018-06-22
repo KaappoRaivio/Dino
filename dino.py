@@ -16,6 +16,7 @@ class Dino:
         self.speed = 0
         self.collision_logic = collision_logic
 
+
         self.down_held = False
         self.up_held = False
 
@@ -67,48 +68,24 @@ class Dino:
         self.spr.move(0, -self.speed)
         self.speed -= self.gravity
 
-        self.pos_x = self.spr.pos_x
-        self.pos_y = self.spr.pos_y
-
-
-        # if self.height < 0:
-        #     self.height = 0
-        #     self.spr.move(6, 12)
-
-        if self.height == 0:
+        if self.pos_y + self.spr.dim_y > self.spr.screenPrinter.term_dim_y:
+            print("mo")
+            self.spr.moveAbsolute(self.pos_x, self.spr.screenPrinter.term_dim_y - self.spr.dim_y - 2)
+            self.height = 0
             self.speed = 0
+
+        if self.height <= 0:
+            self.speed = 0
+
+
 
     def checkForCollisions(self):
         if not self.collision_logic:
             return False
-        # for other in self.spr.screenPrinter.sprites:
-        #     if other is self.spr:
-        #         continue
-        #
-        #     for selfpos in self.spr.getCurrentScreenBuffer():
-        #         for otherpos in other.getCurrentScreenBuffer():
-        #             absselfpos = (selfpos[0] + self.pos_x, selfpos[1] + self.pos_y)
-        #             absotherpos = (otherpos[0] + other.pos_x, otherpos[1] + other.pos_y)
-        #
-        #             if absselfpos == absotherpos:
-        #
-        #                 print(f"Collision:\n\t{other} with {self}, pos: {selfpos}, charself: {self.spr.getCurrentScreenBuffer()[selfpos]}, charother: {other.getCurrentScreenBuffer()[otherpos]}")
-        #                 # self.spr.screenPrinter.changeCharacterAtPos(*selfpos, '\033[31m \033[37m', safe=False)
-        #                 self.spr.screenPrinter.changeCharacterAtPos(*selfpos, 'asd', safe=False)
-        #
-        #                 return True
-        # else:
-        #     return False
-
-        # for other in self.spr.screenPrinter.sprites:
-        #     if other is self.spr:
-        #         continue
-        #     if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
-        #         return True
 
         for candinate in self.spr.screenPrinter.collision_matrix:
             for pos, char in self.spr.getCurrentScreenBuffer().items():
-                abs_pos = (pos[0] + self.pos_x - 3 , pos[1] + self.pos_y)
+                abs_pos = (pos[0] + self.pos_x , pos[1] + self.pos_y)
 
                 # if char == self.spr.getTransparentChar():
                 #     continue
@@ -119,3 +96,35 @@ class Dino:
         else:
             self.spr.screenPrinter.collision_matrix = []
             return False
+
+    @property
+    def pos_x(self):
+        return self.spr.pos_x
+        # return 4
+
+    @property
+    def pos_y(self):
+        return self.spr.pos_y
+        # return 42
+
+    @property
+    def height(self):
+        return self.__height
+
+    @height.setter
+    def height(self, val):
+        self.__height = int(val + 0.5)
+
+
+
+
+    @pos_x.setter
+    def pos_x(self, val):
+        raise Exception("not a chance")
+
+
+
+
+    @pos_y.setter
+    def pos_y(self, val):
+        raise Exception("not a chance")

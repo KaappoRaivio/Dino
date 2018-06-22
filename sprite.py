@@ -52,6 +52,7 @@ class Sprite:
         self.ID += 1
         self.__ID = self.ID
 
+
     def __str__(self):
         return f"Sprite('{self.path_to_file}')"
 
@@ -150,7 +151,7 @@ class Sprite:
 
     @pos_x.setter
     def pos_x(self, val):
-        self.__pos_x = int(val)
+        self.__pos_x = int(val + 0.5)
 
     @property
     def pos_y(self):
@@ -158,7 +159,7 @@ class Sprite:
 
     @pos_y.setter
     def pos_y(self, val):
-        self.__pos_y = int(val)
+        self.__pos_y = int(val + 0.5)
 
     @property
     def dim_x(self):
