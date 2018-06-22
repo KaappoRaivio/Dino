@@ -27,7 +27,7 @@ spr = Sprite.fromFilePath("dino.txt")
 cacspr = Sprite.fromFilePath("obstacle.txt")
 
 printer.attachSprite(spr)
-dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=False)
+dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=True)
 
 sprites = []
 cacti = []

@@ -19,7 +19,7 @@ class Dino:
         self.down_held = False
         self.up_held = False
 
-        def on_press(key):
+        def _onPress(key):
 
             try: k = key.char # single-char keys
             except: k = key.name # other keys
@@ -32,12 +32,18 @@ class Dino:
 
             if k in ['down']:
                 self.startCrouch()
-            else:
-                # quit()
+
+        def _onRelease(key):
+
+            try: k = key.char # single-char keys
+            except: k = key.name # other keys
+
+            # if key == keyboard.Key.esc: return False # stop listener
+
+            if k in ['down']:
                 self.endCrouch()
 
-
-        lis = keyboard.Listener(on_press=on_press)
+        lis = keyboard.Listener(on_press=_onPress, on_release=_onRelease)
         lis.start()
 
     def jump(self):
