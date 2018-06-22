@@ -18,7 +18,7 @@ from sprite import Sprite
 from dino import Dino
 from cactus import Cactus
 from ScreenPrinter import ScreenPrinter
-
+from pterosaur import Pterosaur
 
 
 
@@ -42,14 +42,21 @@ def makeCactus(screen_printer, path):
     screen_printer.attachSprite(temp_sprite)
     return Cactus(temp_sprite, pos_y=WINDOW_DIM_Y - 8)
 
+def makePterosaur(screen_printer, path):
+    temp_sprite = Sprite.fromFilePath(path)
+    screen_printer.attachSprite(temp_sprite)
+    return Pterosaur(temp_sprite, pos_y=WINDOW_DIM_Y - 12)
+
+pterosaurs = []
 
 while True:
     cycle_beginning = time.time()
 
 
+
     if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY + counter * SPAWN_GAIN))) and latest > 6:
         cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
-
+        pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
         # sprites.append(Sprite.fromFilePath("resources/cactus/cactus.txt"))
         # printer.attachSprite(sprites[-1])
         # cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
