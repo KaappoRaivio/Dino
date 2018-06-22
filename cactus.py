@@ -53,5 +53,5 @@ class Cactus:
             else:
                 if coordinate not in self.spr.screenPrinter.collision_matrix:
                     self.spr.screenPrinter.collision_matrix.append(coordinate)
-                else:
-                    print("Expected collision!")
+                # else:
+                #     print("Expected collision!")

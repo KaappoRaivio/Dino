@@ -26,6 +26,8 @@ class Dino:
 
             if k in ['up', 'space']: # keys interested
                 self.jump()
+            elif k in ['t']:
+                self.collision_logic = not self.collision_logic
 
 
         lis = keyboard.Listener(on_press=on_press)
@@ -90,7 +92,7 @@ class Dino:
                 self.spr.screenPrinter.collision_matrix = []
                 return True
         else:
-            self.spr.screenPrinter.collision_matrix = []    
+            self.spr.screenPrinter.collision_matrix = []
             return False
 
 
