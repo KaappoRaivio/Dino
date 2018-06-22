@@ -1,13 +1,13 @@
-DINO_STRENGTH = 5
-DINO_GRAVITY = 0.5
+DINO_STRENGTH = 6
+DINO_GRAVITY = 1
 CACTUS_PROBABILITY = 1 # in percents per frame
-SPAWN_GAIN = 0.0005
+SPAWN_GAIN = 0.05
 WINDOW_DIM_X = 204
 WINDOW_DIM_Y = 52
 CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
-FRAMERATE = 60
-SPEED_GAIN = 0.00001
+FRAMERATE = 20
+SPEED_GAIN = 0.01
 
 
 import time
@@ -57,11 +57,11 @@ while True:
         printer.attachSprite(sprites[-1])
         cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
 
-        speed += int(counter ** 1.2 * SPEED_GAIN)
         # Cactus.changeSpeed(random.randint(CACTUS_MIN_SPEED, CACTUS_MAX_SPEED))
         Cactus.changeSpeed(speed)
 
         latest = -1
+    speed = int(5 + counter * SPEED_GAIN)
 
     # print(printer.collision_matrix)
 
@@ -70,6 +70,11 @@ while True:
 
     counter += 1
     latest += 1
+
+    #speed
+    speed_string = f"Speed: {speed}"
+    printer.putText(printer.term_dim_x - 20 - len(speed_string), 8, speed_string)
+
 
     # Score
     scorestring = f"Score: {counter}"

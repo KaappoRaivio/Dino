@@ -33,6 +33,7 @@ class Dino:
 
             if k in ['down']:
                 self.startCrouch()
+                # self.speed = -3
 
         def _onRelease(key):
 

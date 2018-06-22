@@ -20,7 +20,7 @@ class Cactus:
 
         self.reportCollision()
 
-        if self.pos_x < -5: # Over the screen border
+        if self.pos_x <= -self.spr.dim_y: # Over the screen border
                 self.spr.screenPrinter.sprites.remove(self.spr)
                 del self.spr
                 del self
