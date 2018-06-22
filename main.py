@@ -1,7 +1,7 @@
 DINO_STRENGTH = 6
 DINO_GRAVITY = 1
 CACTUS_PROBABILITY = 1 # in percents per frame
-SPAWN_GAIN = 0.05
+CACTUS_SPAWN_GAIN = 0.05
 WINDOW_DIM_X = 229
 WINDOW_DIM_Y = 52
 CACTUS_MAX_SPEED = 4
@@ -45,7 +45,7 @@ def makeCactus(screen_printer, path):
 def makePterosaur(screen_printer, path):
     temp_sprite = Sprite.fromFilePath(path)
     screen_printer.attachSprite(temp_sprite)
-    return Pterosaur(temp_sprite, pos_y=WINDOW_DIM_Y - 12)
+    return Pterosaur(temp_sprite, pos_y=WINDOW_DIM_Y - 15)
 
 pterosaurs = []
 
@@ -54,8 +54,8 @@ while True:
 
 
 
-    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY + counter * SPAWN_GAIN))) and latest > 6:
-        cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
+    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY + counter * CACTUS_SPAWN_GAIN))) and latest > 6:
+        # cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
         pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
         # sprites.append(Sprite.fromFilePath("resources/cactus/cactus.txt"))
         # printer.attachSprite(sprites[-1])
