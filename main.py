@@ -1,12 +1,12 @@
 DINO_STRENGTH = 10
-DINO_GRAVITY = 1
+DINO_GRAVITY = 2
 CACTUS_PROBABILITY = 1 # in percents per frame
 SPAWN_GAIN = 0.0005
 WINDOW_DIM_X = 204
 WINDOW_DIM_Y = 52
 CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
-FRAMERATE = 30
+FRAMERATE = 60
 SPEED_GAIN = 0.00001
 
 
@@ -23,11 +23,11 @@ from ScreenPrinter import ScreenPrinter
 
 
 printer = ScreenPrinter("background.txt", term_dim_x=WINDOW_DIM_X, term_dim_y=WINDOW_DIM_Y)
-spr = Sprite.fromFilePath("testi.txt")
+spr = Sprite.fromFilePath("dino.txt")
 cacspr = Sprite.fromFilePath("obstacle.txt")
 
 printer.attachSprite(spr)
-dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=True)
+dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=False)
 
 sprites = []
 cacti = []
@@ -36,6 +36,16 @@ counter = 0
 latest = 0
 
 speed = 3
+
+
+# while True:
+#     dino.startCrouch()
+#     printer.commit()
+#     printer.updateSprites()
+#     dino.endCrouch()
+#     printer.commit()
+#     printer.updateSprites()
+#     print("moi")
 
 while True:
     cycle_beginning = time.time()

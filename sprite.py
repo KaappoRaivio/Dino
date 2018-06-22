@@ -26,14 +26,25 @@ class Sprite:
             if i[1] > max_y:
                 max_y = i[1]
 
-        return max_x, max_y,
+        return max_x + 1, max_y + 1,
+
+    @staticmethod
+    def prepareBuffer(raw_data):
+        lines = raw_data.split("\n")
+        temp_buffer = {}
+
+        for y in range(len(lines)):
+            for x in range(len(lines[y])):
+                temp_buffer[x, y,] = lines[y][x]
+
+        return temp_buffer
 
 
-    def __init__(self, screenbuffer, dim_x, dim_y, path_to_file="Path not available"):
+    def __init__(self, screenbuffer, path_to_file="Path not available"):
         self.__current_buffer = screenbuffer
         self.path_to_file = path_to_file
 
-        self.dim_x, self.dim_y = Sprite.getDimensFromScreenbuffer(screenbuffer)
+        # self.dim_x, self.dim_y = Sprite.getDimensFromScreenbuffer(screenbuffer)
 
         self.underlying = {}
         self.drawn = False
@@ -52,18 +63,19 @@ class Sprite:
         except FileNotFoundError:
             raise FileNotFoundError("Invalid filepath!")
 
-        lines = raw_data.split("\n")
-        temp_buffer = {}
+        # lines = raw_data.split("\n")
+        # temp_buffer = {}
+        #
+        # for y in range(len(lines)):
+        #     for x in range(len(lines[y])):
+        #         temp_buffer[x, y,] = lines[y][x]
+        temp_buffer = Sprite.prepareBuffer(raw_data)
+        #
+        # dim_x = len(lines[0])
+        # dim_y = len(lines) - 1
 
-        for y in range(len(lines)):
-            for x in range(len(lines[y])):
-                temp_buffer[x, y,] = lines[y][x]
 
-        dim_x = len(lines[0])
-        dim_y = len(lines) - 1
-
-
-        return cls(temp_buffer, dim_x, dim_y, path_to_file=path_to_file)
+        return cls(temp_buffer, path_to_file=path_to_file)
 
     def getCurrentScreenBuffer(self):
         return self.__current_buffer
@@ -127,6 +139,11 @@ class Sprite:
     def attachToObject(self, obj):
         self.object = obj
 
+    def updateSprite(self, new_buffer):
+        self.undraw()
+        self.__current_buffer = new_buffer
+        self.draw(self.pos_x, self.pos_y)
+
     @property
     def pos_x(self):
         return self.__pos_x
@@ -142,6 +159,14 @@ class Sprite:
     @pos_y.setter
     def pos_y(self, val):
         self.__pos_y = int(val)
+
+    @property
+    def dim_x(self):
+        return Sprite.getDimensFromScreenbuffer(self.getCurrentScreenBuffer())[0]
+
+    @property
+    def dim_y(self):
+        return Sprite.getDimensFromScreenbuffer(self.getCurrentScreenBuffer())[1]
 
 
 path_to_file = "dino.txt"

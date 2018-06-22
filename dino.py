@@ -1,4 +1,5 @@
 from pynput import keyboard
+from sprite import Sprite
 
 import time
 
@@ -13,21 +14,27 @@ class Dino:
         self.gravity = gravity
         self.height = 0
         self.speed = 0
-        self.pos_x  = pos_x
-        self.pos_y = pos_y
         self.collision_logic = collision_logic
+
+        self.down_held = False
+        self.up_held = False
 
         def on_press(key):
 
             try: k = key.char # single-char keys
             except: k = key.name # other keys
 
-            if key == keyboard.Key.esc: return False # stop listener
+            # if key == keyboard.Key.esc: return False # stop listener
 
             if k in ['up', 'space']: # keys interested
                 self.jump()
-            elif k in ['t']:
-                self.collision_logic = not self.collision_logic
+                self.endCrouch()
+
+            if k in ['down']:
+                self.startCrouch()
+            else:
+                # quit()
+                self.endCrouch()
 
 
         lis = keyboard.Listener(on_press=on_press)
@@ -37,8 +44,16 @@ class Dino:
         if self.height == 0:
             self.speed = self.strength
 
-    def crouch(self):
-        pass
+    def startCrouch(self):
+        self.spr.updateSprite(Sprite.prepareBuffer(open("crouched.txt").read()))
+
+
+    def endCrouch(self):
+        self.spr.updateSprite(Sprite.prepareBuffer(open("dino.txt").read()))
+
+
+
+
 
     def update(self):
         self.height += self.speed
@@ -47,6 +62,7 @@ class Dino:
 
         self.pos_x = self.spr.pos_x
         self.pos_y = self.spr.pos_y
+
 
         # if self.height < 0:
         #     self.height = 0
@@ -77,38 +93,8 @@ class Dino:
         # else:
         #     return False
 
-        # for other in self.spr.screenPrinter.sprites:
-        #     if other is self.spr:
-        #         continue
-        #     if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
-        #         return True
-
-        for coordinate, char in self.spr.getCurrentScreenBuffer().items():
-            if char == self.spr.getTransparentChar():
+        for other in self.spr.screenPrinter.sprites:
+            if other is self.spr:
                 continue
-            abs_coordinate = (coordinate[0] + self.pos_x, coordinate[1] + self.pos_y)
-
-            if abs_coordinate in self.spr.screenPrinter.collision_matrix:
-                self.spr.screenPrinter.collision_matrix = []
+            if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
                 return True
-        else:
-            self.spr.screenPrinter.collision_matrix = []
-            return False
-
-
-
-        @property
-        def pos_x(self):
-            return self.spr.pos_x
-
-        @pos_x.setter
-        def pos_x(self, val):
-            pass
-
-        @property
-        def pos_y(self):
-            return self.spr.pos_y
-
-        @pos_y.setter
-        def pos_y(self, val):
-            pass
