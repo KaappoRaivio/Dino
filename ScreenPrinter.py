@@ -6,7 +6,7 @@ from dino import Dino
 from cactus import Cactus
 
 class ScreenPrinter:
-    def __init__(self, path_to_background, term_dim_x=183, term_dim_y=55):
+    def __init__(self, path_to_background=None, term_dim_x=183, term_dim_y=55):
         self.term_dim_x = term_dim_x
         self.term_dim_y = term_dim_y
 
@@ -17,7 +17,8 @@ class ScreenPrinter:
             with open(path_to_background, 'r') as file:
                 raw_data = file.read()
         except FileNotFoundError:
-            raise FileNotFoundError("Invalid filepath!")
+            raw_data = ''
+            # raise FileNotFoundError("Invalid filepath!")
 
         lines = raw_data.split("\n")
         temp_buffer = {}

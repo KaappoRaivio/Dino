@@ -23,11 +23,11 @@ from ScreenPrinter import ScreenPrinter
 
 
 printer = ScreenPrinter("background.txt", term_dim_x=WINDOW_DIM_X, term_dim_y=WINDOW_DIM_Y)
-spr = Sprite.fromFilePath("dino.txt")
-cacspr = Sprite.fromFilePath("obstacle.txt")
+dino_spr = Sprite.fromFilePath("resources/dino/dino.txt")
+cactus_spr = Sprite.fromFilePath("resources/cactus/cactus.txt")
 
-printer.attachSprite(spr)
-dino = Dino(spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=True)
+printer.attachSprite(dino_spr)
+dino = Dino(dino_spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=True)
 
 sprites = []
 cacti = []
@@ -44,14 +44,14 @@ while True:
 
     if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY + counter * SPAWN_GAIN))) and latest > 6:
 
-        sprites.append(Sprite.fromFilePath("obstacle.txt"))
+        sprites.append(Sprite.fromFilePath("resources/cactus/cactus.txt"))
         printer.attachSprite(sprites[-1])
         cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
 
         Cactus.changeSpeed(speed)
 
         latest = -1
-    
+
     speed = int(5 + counter * SPEED_GAIN)
 
 

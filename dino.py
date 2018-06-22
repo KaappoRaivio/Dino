@@ -33,6 +33,8 @@ class Dino:
             if k in ['down']:
                 self.startCrouch()
 
+            return True
+
         def _onRelease(key):
 
             try: k = key.char # single-char keys
@@ -41,6 +43,8 @@ class Dino:
 
             if k in ['down']:
                 self.endCrouch()
+
+            return True
 
         lis = keyboard.Listener(on_press=_onPress, on_release=_onRelease)
         lis.start()
