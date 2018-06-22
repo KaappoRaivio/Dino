@@ -2,7 +2,7 @@ DINO_STRENGTH = 6
 DINO_GRAVITY = 1
 CACTUS_PROBABILITY = 1 # in percents per frame
 SPAWN_GAIN = 0.05
-WINDOW_DIM_X = 204
+WINDOW_DIM_X = 229
 WINDOW_DIM_Y = 52
 CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
@@ -38,32 +38,22 @@ latest = 0
 speed = 3
 
 
-# while True:
-#     dino.startCrouch()
-#     printer.commit()
-#     printer.updateSprites()
-#     dino.endCrouch()
-#     printer.commit()
-#     printer.updateSprites()
-#     print("moi")
-
 while True:
     cycle_beginning = time.time()
 
 
-    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY * counter ** SPAWN_GAIN))) and latest > 6:
+    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY + counter * SPAWN_GAIN))) and latest > 6:
 
         sprites.append(Sprite.fromFilePath("obstacle.txt"))
         printer.attachSprite(sprites[-1])
         cacti.append(Cactus(sprites[-1], pos_y=WINDOW_DIM_Y - 8))
 
-        # Cactus.changeSpeed(random.randint(CACTUS_MIN_SPEED, CACTUS_MAX_SPEED))
         Cactus.changeSpeed(speed)
 
         latest = -1
+    
     speed = int(5 + counter * SPEED_GAIN)
 
-    # print(printer.collision_matrix)
 
     printer.commit()
     printer.updateSprites()

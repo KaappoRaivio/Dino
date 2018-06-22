@@ -25,10 +25,6 @@ class Cactus:
                 del self.spr
                 del self
 
-    # def __del__(self):
-    #     self.cacti.remove(self)
-    #     self.spr.undraw()
-    #     del self
 
     @property
     def speed(self):
@@ -53,5 +49,3 @@ class Cactus:
             else:
                 if coordinate not in self.spr.screenPrinter.collision_matrix:
                     self.spr.screenPrinter.collision_matrix.append(coordinate)
-                # else:
-                #     print("Expected collision!")

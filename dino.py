@@ -25,22 +25,19 @@ class Dino:
             try: k = key.char # single-char keys
             except: k = key.name # other keys
 
-            # if key == keyboard.Key.esc: return False # stop listener
 
-            if k in ['up', 'space']: # keys interested
+            if k in ['up', 'space']: # hyppy
                 self.jump()
                 self.endCrouch()
 
             if k in ['down']:
                 self.startCrouch()
-                # self.speed = -3
 
         def _onRelease(key):
 
             try: k = key.char # single-char keys
             except: k = key.name # other keys
 
-            # if key == keyboard.Key.esc: return False # stop listener
 
             if k in ['down']:
                 self.endCrouch()
@@ -70,7 +67,6 @@ class Dino:
         self.speed -= self.gravity
 
         if self.pos_y + self.spr.dim_y > self.spr.screenPrinter.term_dim_y:
-            print("mo")
             self.spr.moveAbsolute(self.pos_x, self.spr.screenPrinter.term_dim_y - self.spr.dim_y - 2)
             self.height = 0
             self.speed = 0
@@ -87,9 +83,6 @@ class Dino:
         for candinate in self.spr.screenPrinter.collision_matrix:
             for pos, char in self.spr.getCurrentScreenBuffer().items():
                 abs_pos = (pos[0] + self.pos_x , pos[1] + self.pos_y)
-
-                # if char == self.spr.getTransparentChar():
-                #     continue
 
                 if abs_pos == candinate:
                     self.spr.screenPrinter.collision_matrix = []

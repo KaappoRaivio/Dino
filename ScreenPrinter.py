@@ -70,6 +70,3 @@ class ScreenPrinter:
     def putText(self, pos_x, pos_y, text):
         for i in range(len(text)):
             self.changeCharacterAtPos(pos_x + i, pos_y, text[i])
-
-
-# filu.close()
