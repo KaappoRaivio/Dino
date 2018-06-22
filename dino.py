@@ -54,11 +54,11 @@ class Dino:
             self.speed = self.strength
 
     def startCrouch(self):
-        self.spr.updateSprite(Sprite.prepareBuffer(open("crouched.txt").read()))
+        self.spr.updateSprite(Sprite.prepareBuffer(open("resources/dino/dino_crouched.txt").read()))
 
 
     def endCrouch(self):
-        self.spr.updateSprite(Sprite.prepareBuffer(open("dino.txt").read()))
+        self.spr.updateSprite(Sprite.prepareBuffer(open("resources/dino/dino.txt").read()))
 
 
 
