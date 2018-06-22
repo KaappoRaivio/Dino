@@ -104,13 +104,16 @@ class Dino:
         #         continue
         #     if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
         #         return True
+        print("terve")
 
         for candinate in self.spr.screenPrinter.collision_matrix:
             for pos, char in self.spr.getCurrentScreenBuffer().items():
-                if char == self.spr.getTransparentChar():
-                    continue
+                abs_pos = (pos[0] + self.pos_x, pos[1] + self.pos_y)
 
-                if pos == candinate:
+                # if char == self.spr.getTransparentChar():
+                #     continue
+
+                if abs_pos == candinate:
                     self.spr.screenPrinter.collision_matrix = []
                     return True
         else:
