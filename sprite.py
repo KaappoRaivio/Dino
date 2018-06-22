@@ -167,21 +167,21 @@ class Sprite:
     @property
     def dim_y(self):
         return Sprite.getDimensFromScreenbuffer(self.getCurrentScreenBuffer())[1]
-
-
-path_to_file = "dino.txt"
-
-try:
-    with open(path_to_file, 'r') as file:
-        raw_data = file.read()
-except FileNotFoundError:
-    raise FileNotFoundError("Invalid filepath!")
-
-lines = raw_data.split("\n")
-temp_buffer = {}
-
-for y in range(len(lines)):
-    for x in range(len(lines[y])):
-        temp_buffer[x, y,] = lines[y][x]
-
-print(Sprite.getDimensFromScreenbuffer(temp_buffer))
+#
+#
+# path_to_file = "dino.txt"
+#
+# try:
+#     with open(path_to_file, 'r') as file:
+#         raw_data = file.read()
+# except FileNotFoundError:
+#     raise FileNotFoundError("Invalid filepath!")
+#
+# lines = raw_data.split("\n")
+# temp_buffer = {}
+#
+# for y in range(len(lines)):
+#     for x in range(len(lines[y])):
+#         temp_buffer[x, y,] = lines[y][x]
+#
+# print(Sprite.getDimensFromScreenbuffer(temp_buffer))

@@ -61,6 +61,7 @@ class Dino:
 
 
 
+
     def update(self):
         self.height += self.speed
         self.spr.move(0, -self.speed)
@@ -104,11 +105,10 @@ class Dino:
         #         continue
         #     if (3 <= other.pos_x <= 21) and self.pos_y >= self.spr.screenPrinter.term_dim_y - 15:
         #         return True
-        print("terve")
 
         for candinate in self.spr.screenPrinter.collision_matrix:
             for pos, char in self.spr.getCurrentScreenBuffer().items():
-                abs_pos = (pos[0] + self.pos_x, pos[1] + self.pos_y)
+                abs_pos = (pos[0] + self.pos_x - 3 , pos[1] + self.pos_y)
 
                 # if char == self.spr.getTransparentChar():
                 #     continue
