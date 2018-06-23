@@ -3,7 +3,7 @@ from sprite import Sprite
 class Pterosaur:
     pterosaurea = []
 
-    def __init__(self, spr, pos_y=12, speed=3):
+    def __init__(self, spr, pos_y=14, speed=3):
         self.spr = spr
         spr.attachToObject(self)
 
@@ -29,9 +29,12 @@ class Pterosaur:
 
         if self.pos_x <= -self.spr.dim_y * 3: # Over the screen border
                 self.spr.screenPrinter.sprites.remove(self.spr)
-                del self.spr
-                del self
+                self.spr.undraw()
 
+    @classmethod
+    def changeSpeed(cls, new_speed):
+        for pterosaur in cls.pterosaurea:
+            pterosaur.speed = new_speed
 
 
     def getNextAnimationFrame(self):
@@ -51,12 +54,11 @@ class Pterosaur:
     def speed(self, val):
         self.__speed = int(val)
 
-    @classmethod
-    def changeSpeed(cls, new_speed):
-        for cactus in cls.cacti:
-            cactus.speed = new_speed
 
     def reportCollision(self):
+        if not self.spr.drawn:
+            return
+
         for coordinate, char in self.spr.getCurrentScreenBuffer().items():
 
             coordinate = (coordinate[0] + self.spr.pos_x, coordinate[1] + self.pos_y) #convertabsolute

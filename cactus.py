@@ -21,8 +21,7 @@ class Cactus:
 
         if self.pos_x <= -self.spr.dim_y * 3: # Over the screen border
                 self.spr.screenPrinter.sprites.remove(self.spr)
-                del self.spr
-                del self
+                self.spr.undraw()
 
 
     @property
@@ -39,6 +38,9 @@ class Cactus:
             cactus.speed = new_speed
 
     def reportCollision(self):
+        if not self.spr.drawn:
+            return
+
         for coordinate, char in self.spr.getCurrentScreenBuffer().items():
 
             coordinate = (coordinate[0] + self.spr.pos_x, coordinate[1] + self.pos_y) #convertabsolute

@@ -26,11 +26,11 @@ class Dino:
             except: k = key.name # other keys
 
 
-            if k in ['up', 'space']: # hyppy
+            if k in ['up', 'space', 'w']: # hyppy
                 self.jump()
                 self.endCrouch()
 
-            if k in ['down']:
+            if k in ['down', 's']:
                 if not self.pos_y - self.spr.dim_y == 0:
                     self.speed = -5
                 self.startCrouch()

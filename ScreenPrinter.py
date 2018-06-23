@@ -49,7 +49,7 @@ class ScreenPrinter:
 
         for y in range(self.term_dim_y):
             for x in range(self.term_dim_x):
-                print(self.__current_buffer[x, y,], end="")
+                print(self.getNegative(self.__current_buffer[x, y,]), end="")
 
 
 
@@ -74,4 +74,16 @@ class ScreenPrinter:
 
     def putText(self, pos_x, pos_y, text):
         for i in range(len(text)):
-            self.changeCharacterAtPos(pos_x + i, pos_y, text[i])
+            self.changeCharacterAtPos(pos_x + i, pos_y, text[i], safe=False)
+
+    @staticmethod
+    def getNegative(char):
+        k = 0
+
+        chars = [' ', '░', '▒', '▓', '█']
+        for key, val in enumerate(chars):
+            if val == char:
+                k = key
+                break
+
+        return chars[len(chars) - 1 - k]

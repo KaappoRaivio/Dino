@@ -1,5 +1,5 @@
-DINO_STRENGTH = 8
-DINO_GRAVITY = 2
+DINO_STRENGTH = 4
+DINO_GRAVITY = 1
 CACTUS_PROBABILITY = 1 # in percents per frame
 CACTUS_SPAWN_GAIN = 0.0025
 PTEROSAUR_PROBABILITY = 2
@@ -8,7 +8,7 @@ WINDOW_DIM_X = 229
 WINDOW_DIM_Y = 52
 CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
-FRAMERATE = 5
+FRAMERATE = 20
 SPEED_GAIN = 0.01
 
 
@@ -21,6 +21,7 @@ from dino import Dino
 from cactus import Cactus
 from ScreenPrinter import ScreenPrinter
 from pterosaur import Pterosaur
+from color import colors
 
 
 
@@ -29,7 +30,7 @@ dino_spr = Sprite.fromFilePath("resources/dino/dino.txt")
 cactus_spr = Sprite.fromFilePath("resources/cactus/cactus.txt")
 
 printer.attachSprite(dino_spr)
-dino = Dino(dino_spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=False)
+dino = Dino(dino_spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=True)
 
 sprites = []
 cacti = []
@@ -47,7 +48,9 @@ def makeCactus(screen_printer, path):
 def makePterosaur(screen_printer, path):
     temp_sprite = Sprite.fromFilePath(path)
     screen_printer.attachSprite(temp_sprite)
-    return Pterosaur(temp_sprite, pos_y=WINDOW_DIM_Y - 15)
+    return Pterosaur(temp_sprite, pos_y=WINDOW_DIM_Y - (12 + random.choice([1, 0]) * 4))
+
+
 
 pterosaurs = []
 
@@ -70,9 +73,9 @@ while True:
 
     speed = int(5 + counter * SPEED_GAIN)
     Cactus.changeSpeed(speed)
+    Pterosaur.changeSpeed(speed)
 
-
-
+    # print(f"{colors.blackwhite} asd")
     printer.commit()
     printer.updateSprites()
 
@@ -80,7 +83,7 @@ while True:
     latest += 1
 
     #speed
-    speed_string = f"Speed: {speed}"
+    speed_string = f"{colors.blackwhite}Speed: {speed}{colors.blackwhite}"
     printer.putText(printer.term_dim_x - 20 - len(speed_string), 8, speed_string)
 
 
@@ -90,7 +93,10 @@ while True:
     printer.putText(printer.term_dim_x - 5 - len(scorestring), 8, scorestring)
 
     if dino.checkForCollisions():
-        printer.putText(12, 8, "Game over!")
+        # printer.putText(12, 8, "Game over!")
+        gameover = Sprite.fromFilePath("resources/misc/gameover.txt")
+        printer.attachSprite(gameover)
+        gameover.draw(40, 16)
         printer.commit()
         quit()
 
