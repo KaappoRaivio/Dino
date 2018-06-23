@@ -43,7 +43,7 @@ class Dino:
             except: k = key.name # other keys
 
 
-            if k in ['down']:
+            if k in ['down', 's']:
                 self.endCrouch()
 
             return True
