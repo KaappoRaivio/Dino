@@ -25,15 +25,17 @@ class Pterosaur(BaseObject):
             self.updateMoving()
 
         self.reportCollision()
-        self.delIfOverTheEdge()
 
         if self.getNextAnimationFrame() == 1:
             self.spr.updateSprite(Sprite.prepareBuffer(open("resources/pterosaur/pterosaur1.txt").read()))
         else:
             self.spr.updateSprite(Sprite.prepareBuffer(open("resources/pterosaur/pterosaur2.txt").read()))
 
-        if self.pos_x < self.spr.screenPrinter.term_dim_x + self.spr.dim_x:
-            del self
+        self.delIfOverTheEdge()
+
+        # if self.pos_x < self.spr.dim_x + 24:
+        #     print("srgoi")
+        #     self.spr.delete()
 
     def getNextAnimationFrame(self):
         self.__frame += 1
@@ -42,6 +44,9 @@ class Pterosaur(BaseObject):
         else:
             return 0
 
+    def delete(self):
+        self.spr.delete()
+        # del self
 
     @classmethod
     def getFrameCounter(cls):

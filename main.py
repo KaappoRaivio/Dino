@@ -53,7 +53,21 @@ def makePterosaur(screen_printer, path):
 
 
 cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
-# pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
+pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
+
+# asd = Sprite.fromFilePath("resources/dino/dino.txt")
+# printer.attachSprite(asd)
+
+# while True:
+#     printer.commit()
+#     time.sleep(1)
+#     asd.draw(0, 0)
+#     printer.commit()
+#     time.sleep(1)
+#     asd.delete()
+#     printer.commit()
+#
+#     quit()
 
 
 while True:

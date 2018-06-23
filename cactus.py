@@ -29,6 +29,9 @@ class Cactus(BaseObject):
         # if self.pos_x < self.spr.screenPrinter.term_dim_x + self.spr.dim_x:
         #     del self
 
+    def delete(self):
+        self.spr.delete()
+        del self
 
 
     @classmethod

@@ -26,17 +26,15 @@ class BaseObject:
         self.spr.move(self.speed_x, self.speed_y)
 
     def delIfOverTheEdge(self):
-        if self.pos_x <= -self.spr.dim_y: # Over the screen border
+        if self.pos_x < -self.spr.dim_y: # Over the screen border
             # print(f"{colors.blue}moi{colors.white}")
-            del self
+            # self.spr.delete()
+            print(f"Deleted object: {self.spr}")
+            # del self
+            self.delete()
             # self.spr.undraw()
             # self.is_movable = False
             # self.has_collision_logic = True
-
-    def __del__(self):
-        print(f"{colors.blue}assssssssssssssssssssssssesrgbgs")
-        del self.spr
-        del self
 
 
     def reportCollision(self):
