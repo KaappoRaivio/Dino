@@ -83,14 +83,14 @@ while True:
     latest += 1
 
     #speed
-    speed_string = f"{colors.blackwhite}Speed: {speed}{colors.blackwhite}"
-    printer.putText(printer.term_dim_x - 20 - len(speed_string), 8, speed_string)
+    speed_string = f"Speed: {speed}"
+    printer.putText(printer.term_dim_x - 20 - len(speed_string), 8, speed_string, color=colors.blackwhite)
 
 
     # Score
     scorestring = f"Score: {counter}"
 
-    printer.putText(printer.term_dim_x - 5 - len(scorestring), 8, scorestring)
+    printer.putText(printer.term_dim_x - 5 - len(scorestring), 8, scorestring, color=colors.blackwhite)
 
     if dino.checkForCollisions():
         # printer.putText(12, 8, "Game over!")

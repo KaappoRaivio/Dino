@@ -9,3 +9,5 @@ class colors:
     magenta = '\033[35m'
     white = '\033[37m'
     blackwhite = '\033[47m\033[30m'
+    reset = '\033[0m'
+    whiteblack = '\033[30m\033[47m'

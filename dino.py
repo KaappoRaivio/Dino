@@ -51,6 +51,10 @@ class Dino:
         lis = keyboard.Listener(on_press=_onPress, on_release=_onRelease)
         lis.start()
 
+    def __del__(self):
+        del self.spr
+        del self
+
     def jump(self):
         if self.height == 0:
             self.speed = self.strength

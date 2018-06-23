@@ -135,6 +135,11 @@ class Sprite:
         self.__current_buffer = new_buffer
         self.draw(self.pos_x, self.pos_y)
 
+    def __del__(self):
+        self.undraw()
+        self.screenPrinter.detachSprite()
+        del self
+
     @property
     def pos_x(self):
         return self.__pos_x

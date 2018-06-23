@@ -72,18 +72,32 @@ class ScreenPrinter:
         for i in self.sprites:
             i.object.update()
 
-    def putText(self, pos_x, pos_y, text):
+    def putText(self, pos_x, pos_y, text, color=colors.white):
         for i in range(len(text)):
-            self.changeCharacterAtPos(pos_x + i, pos_y, text[i], safe=False)
+            # if False:
+            #     pass
+            if i == 0:
+                self.changeCharacterAtPos(pos_x + i, pos_y, color + text[i], safe=False)
+            elif i == len(text):
+                self.changeCharacterAtPos(pos_x + i, pos_y, text[i] + colors.whiteblack, safe=False)
+            else:
+                self.changeCharacterAtPos(pos_x + i, pos_y, text[i], safe=True)
 
     @staticmethod
     def getNegative(char):
-        k = 0
+        # k = 0
+        #
+        # chars = [' ', '░', '▒', '▓', '█']
+        # for key, val in enumerate(chars):
+        #     if val == char:
+        #         k = key
+        #         # print(k)
+        #         break
+        # else:
+        #     return char
+        #
+        # return chars[-k]
+        return char
 
-        chars = [' ', '░', '▒', '▓', '█']
-        for key, val in enumerate(chars):
-            if val == char:
-                k = key
-                break
-
-        return chars[len(chars) - 1 - k]
+    def detachSprite(self, spr):
+        self.sprites.remove(spr)
