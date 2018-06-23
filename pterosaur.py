@@ -61,6 +61,7 @@ class Pterosaur:
 
             coordinate = (coordinate[0] + self.spr.pos_x, coordinate[1] + self.pos_y) #convertabsolute
 
+
             if char == self.spr.getTransparentChar():
                 continue
             else:

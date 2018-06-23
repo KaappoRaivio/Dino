@@ -88,6 +88,9 @@ class Dino:
 
         for candinate in self.spr.screenPrinter.collision_matrix:
             for pos, char in self.spr.getCurrentScreenBuffer().items():
+                if char == self.spr.getTransparentChar():
+                    continue
+
                 abs_pos = (pos[0] + self.pos_x , pos[1] + self.pos_y)
 
                 if abs_pos == candinate:

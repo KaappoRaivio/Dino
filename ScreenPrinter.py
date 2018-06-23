@@ -4,6 +4,7 @@ from utils import ACoord, Logger
 from sprite import Sprite
 from dino import Dino
 from cactus import Cactus
+from color import colors
 
 class ScreenPrinter:
     def __init__(self, path_to_background=None, term_dim_x=183, term_dim_y=55):
@@ -48,7 +49,15 @@ class ScreenPrinter:
 
         for y in range(self.term_dim_y):
             for x in range(self.term_dim_x):
-                print(self.__current_buffer[x, y,], end="")
+                if (y, x,) in self.collision_matrix:
+                    print(colors.red, end="")
+                    print(self.__current_buffer[x, y,], end="")
+                    print(colors.white, end="")
+                else:
+                    print(colors.white, end="")
+                    print(self.__current_buffer[x, y,], end="")
+
+
             print()
 
     def getCurrentScreenBuffer(self):
