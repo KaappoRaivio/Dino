@@ -27,14 +27,9 @@ class BaseObject:
 
     def delIfOverTheEdge(self):
         if self.pos_x < -self.spr.dim_y: # Over the screen border
-            # print(f"{colors.blue}moi{colors.white}")
-            # self.spr.delete()
+
             print(f"Deleted object: {self.spr}")
-            # del self
             self.delete()
-            # self.spr.undraw()
-            # self.is_movable = False
-            # self.has_collision_logic = True
 
 
     def reportCollision(self):

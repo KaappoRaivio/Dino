@@ -26,8 +26,6 @@ class Cactus(BaseObject):
         self.reportCollision()
         self.delIfOverTheEdge()
 
-        # if self.pos_x < self.spr.screenPrinter.term_dim_x + self.spr.dim_x:
-        #     del self
 
     def delete(self):
         self.spr.delete()
@@ -44,15 +42,3 @@ class Cactus(BaseObject):
         cls.speed_x_cls = new_speed
         for cactus in cls.cacti:
             cactus.speed = new_speed
-
-    # @property
-    # def speed(self):
-    #     return self.__speed_x
-
-    # @speed.setter
-    # def speed(self, new_speed):
-    #     # print("SAIN")
-    #
-    #     self.__speed = int(new_speed)
-    #     # self.setSpeeds(new_speed, 0)
-    #     # self.speed_x = int(new_speed)
