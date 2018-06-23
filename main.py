@@ -10,7 +10,7 @@ CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
 FRAMERATE = 10000
 SPEED_GAIN = 0.01
-
+DINO_COLLISION_LOGIC = True
 
 import time
 import random
@@ -30,7 +30,7 @@ dino_spr = Sprite.fromFilePath("resources/dino/dino.txt")
 cactus_spr = Sprite.fromFilePath("resources/cactus/cactus.txt")
 
 printer.attachSprite(dino_spr)
-dino = Dino(dino_spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=False)
+dino = Dino(dino_spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=DINO_COLLISION_LOGIC)
 
 sprites = []
 cacti = []
@@ -52,8 +52,8 @@ def makePterosaur(screen_printer, path):
     return Pterosaur(temp_sprite, speed=-5)
 
 
-cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
-pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
+# cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
+# pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
 
 
 while True:
