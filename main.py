@@ -8,7 +8,7 @@ WINDOW_DIM_X = 229
 WINDOW_DIM_Y = 52
 CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
-FRAMERATE = 20
+FRAMERATE = 5
 SPEED_GAIN = 0.01
 
 
@@ -29,7 +29,7 @@ dino_spr = Sprite.fromFilePath("resources/dino/dino.txt")
 cactus_spr = Sprite.fromFilePath("resources/cactus/cactus.txt")
 
 printer.attachSprite(dino_spr)
-dino = Dino(dino_spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=True)
+dino = Dino(dino_spr, strength=DINO_STRENGTH, gravity=DINO_GRAVITY, pos_y=WINDOW_DIM_Y - 12, collision_logic=False)
 
 sprites = []
 cacti = []
