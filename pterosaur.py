@@ -3,7 +3,7 @@ from sprite import Sprite
 class Pterosaur:
     pterosaurea = []
 
-    def __init__(self, spr, pos_y=12, speed=5):
+    def __init__(self, spr, pos_y=12, speed=3):
         self.spr = spr
         spr.attachToObject(self)
 

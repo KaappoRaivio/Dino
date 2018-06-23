@@ -49,13 +49,8 @@ class ScreenPrinter:
 
         for y in range(self.term_dim_y):
             for x in range(self.term_dim_x):
-                if (y, x,) in self.collision_matrix:
-                    print(colors.red, end="")
-                    print(self.__current_buffer[x, y,], end="")
-                    print(colors.white, end="")
-                else:
-                    print(colors.white, end="")
-                    print(self.__current_buffer[x, y,], end="")
+                print(self.__current_buffer[x, y,], end="")
+
 
 
             print()
