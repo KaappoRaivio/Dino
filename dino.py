@@ -52,7 +52,7 @@ class Dino:
         lis.start()
 
     def __del__(self):
-        del self.spr
+        # del self.spr
         del self
 
     def jump(self):

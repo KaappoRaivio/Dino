@@ -1,52 +1,55 @@
-class Cactus:
+from baseobject import BaseObject
+from sprite import Sprite
+
+class Cactus(BaseObject):
     cacti = []
 
-    def __init__(self, spr, pos_y=16, speed=5):
+    speed_x_cls = -5
+    speed_y = 0
+    __frame_counter = 0
 
-        self.spr = spr
-        spr.attachToObject(self)
-
-        self.pos_y = pos_y
-        self.spr.draw(self.spr.screenPrinter.term_dim_x, self.pos_y)
-        self.pos_x = self.spr.screenPrinter.term_dim_x
-        self.speed = speed
-
+    def __init__(self, sprite, speed):
+        super().__init__(pos_x=sprite.screenPrinter.term_dim_x, pos_y=44, sprite=sprite, speed_x=speed, speed_y=0, is_movable=True, has_collision_logic=True)
         Cactus.cacti.append(self)
 
+        sprite.attachToObject(self)
+
+        self.speed_x = speed
+        self.speed_y = 0
+
+
+
     def update(self):
-        self.spr.move(-self.speed, 0)
-        self.pos_x -= self.speed
+        if self.getFrameCounter():
+            self.updateMoving()
 
         self.reportCollision()
+        self.delIfOverTheEdge()
 
-        if self.pos_x <= -self.spr.dim_y * 3: # Over the screen border
-                self.spr.screenPrinter.sprites.remove(self.spr)
-                self.spr.undraw()
+        # if self.pos_x < self.spr.screenPrinter.term_dim_x + self.spr.dim_x:
+        #     del self
 
 
-    @property
-    def speed(self):
-        return self.__speed
 
-    @speed.setter
-    def speed(self, val):
-        self.__speed = int(val)
+    @classmethod
+    def getFrameCounter(cls):
+        cls.__frame_counter += 1
+        return cls.__frame_counter % max(1, 10 + len(cls.cacti) - cls.speed_x_cls) in range(len(cls.cacti))
 
     @classmethod
     def changeSpeed(cls, new_speed):
+        cls.speed_x_cls = new_speed
         for cactus in cls.cacti:
             cactus.speed = new_speed
 
-    def reportCollision(self):
-        if not self.spr.drawn:
-            return
+    # @property
+    # def speed(self):
+    #     return self.__speed_x
 
-        for coordinate, char in self.spr.getCurrentScreenBuffer().items():
-
-            coordinate = (coordinate[0] + self.spr.pos_x, coordinate[1] + self.pos_y) #convertabsolute
-
-            if char == self.spr.getTransparentChar():
-                continue
-            else:
-                if coordinate not in self.spr.screenPrinter.collision_matrix:
-                    self.spr.screenPrinter.collision_matrix.append(coordinate)
+    # @speed.setter
+    # def speed(self, new_speed):
+    #     # print("SAIN")
+    #
+    #     self.__speed = int(new_speed)
+    #     # self.setSpeeds(new_speed, 0)
+    #     # self.speed_x = int(new_speed)

@@ -138,7 +138,7 @@ class Sprite:
     def __del__(self):
         self.undraw()
         self.screenPrinter.detachSprite()
-        del self
+        # del self
 
     @property
     def pos_x(self):
