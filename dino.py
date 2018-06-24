@@ -72,6 +72,7 @@ class Dino:
 
 
     def update(self):
+        # self.spr.screenPrinter.log(self.speed)
         self.height += self.speed
         self.spr.move(0, -self.speed)
         self.speed -= self.gravity

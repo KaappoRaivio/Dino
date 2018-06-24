@@ -1,5 +1,5 @@
-DINO_STRENGTH = 4
-DINO_GRAVITY = 1
+DINO_STRENGTH = 10
+DINO_GRAVITY = 2
 CACTUS_PROBABILITY = 1 # in percents per frame
 CACTUS_SPAWN_GAIN = 0.0025
 PTEROSAUR_PROBABILITY = 2
@@ -73,8 +73,8 @@ while True:
 
         latest = -1
 
-    speed = 10
-    # speed = int(5 + counter * SPEED_GAIN)
+    # speed = 10
+    speed = int(5 + counter * SPEED_GAIN)
     Cactus.changeSpeed(speed)
     Pterosaur.changeSpeed(speed)
 

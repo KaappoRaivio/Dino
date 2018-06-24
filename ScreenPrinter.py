@@ -83,6 +83,12 @@ class ScreenPrinter:
             else:
                 self.changeCharacterAtPos(pos_x + i, pos_y, text[i], safe=True)
 
+    def log(self, *args, separator=' '):
+        args = list(map(str, args))
+        string = separator.join(args)
+        self.putText(0, self.term_dim_y - 1, self.term_dim_x * ' ')
+        self.putText(0, self.term_dim_y - 1, string, color=colors.whiteblack)
+
     @staticmethod
     def getNegative(char):
         # k = 0

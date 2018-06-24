@@ -28,7 +28,7 @@ class BaseObject:
     def delIfOverTheEdge(self):
         if self.pos_x < -self.spr.dim_y: # Over the screen border
 
-            print(f"Deleted object: {self.spr}")
+            self.spr.screenPrinter.log(f"Deleted object: {self.spr}")
             self.delete()
 
 
