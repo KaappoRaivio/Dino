@@ -4,7 +4,7 @@ from sprite import Sprite
 import time
 
 class Dino:
-    def __init__(self, spr, strength=6, gravity=2, pos_x=6, pos_y=12, collision_logic=True):
+    def __init__(self, spr, strength=6, gravity=2, pos_x=6, pos_y=12, collision_logic=True, framerate=4):
 
         self.spr = spr
         self.spr.attachToObject(self)
@@ -16,19 +16,27 @@ class Dino:
         self.speed = 0
         self.collision_logic = collision_logic
 
+        self.framerate = framerate
+
 
         self.down_held = False
         self.up_held = False
+
+        self.in_air = False
+        self.__in_air_reference = True
+        self.__frame = 0
 
         def _onPress(key):
 
             try: k = key.char # single-char keys
             except: k = key.name # other keys
 
+            self.spr.screenPrinter.log(f"Tomii! {self.__frame}")
+
 
             if k in ['up', 'space', 'w']: # hyppy
-                self.jump()
                 self.endCrouch()
+                self.jump()
 
             if k in ['down', 's']:
                 if not self.pos_y - self.spr.dim_y == 0:
@@ -48,15 +56,33 @@ class Dino:
 
             return True
 
-        lis = keyboard.Listener(on_press=_onPress, on_release=_onRelease)
-        lis.start()
+        self.listener = keyboard.Listener(on_press=_onPress, on_release=_onRelease)
+        self.listener.start()
 
     def __del__(self):
         # del self.spr
         del self
 
+    def getUpdateFrame(self):
+        if self.in_air is not self.__in_air_reference:
+            self.__in_air_reference = self.in_air
+            self.__frame = 1
+            return True
+        else:
+            self.__frame += 1
+            return self.__frame % self.framerate == 0
+
+
+
+    def setSelfToAir(self):
+        self.in_air = True
+
+    def setSelfToGround(self):
+        self.in_air = False
+
     def jump(self):
         if self.height == 0:
+            self.in_air = True
             self.speed = self.strength
 
     def startCrouch(self):
@@ -72,10 +98,13 @@ class Dino:
 
 
     def update(self):
-        # self.spr.screenPrinter.log(self.speed)
-        self.height += self.speed
-        self.spr.move(0, -self.speed)
-        self.speed -= self.gravity
+        if not self.listener.is_alive():
+            self.listener.start()
+
+        if self.getUpdateFrame():
+            self.height += self.speed
+            self.spr.move(0, -self.speed)
+            self.speed -= self.gravity
 
         if self.pos_y + self.spr.dim_y > self.spr.screenPrinter.term_dim_y:
             self.spr.moveAbsolute(self.pos_x, self.spr.screenPrinter.term_dim_y - self.spr.dim_y - 2)
@@ -83,6 +112,7 @@ class Dino:
             self.speed = 0
 
         if self.height <= 0:
+            self.in_air = False
             self.speed = 0
 
 
