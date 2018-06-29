@@ -47,12 +47,12 @@ class Sprite:
         self.underlying = {}
         self.drawn = False
 
-        self.ID += 1
-        self.__ID = self.ID
+        Sprite.ID += 1
+        self.__ID = Sprite.ID
 
 
     def __str__(self):
-        return f"Sprite('{self.path_to_file}')"
+        return f"Sprite('{self.path_to_file}', {self.__ID})"
 
     @classmethod
     def fromFilePath(cls, path_to_file):
@@ -137,6 +137,9 @@ class Sprite:
 
 
     def delete(self):
+        # sel
+        # quit()
+        self.screenPrinter.log(f"Called Delete with sprite {self}")
         if self.drawn:
             self.undraw()
         self.screenPrinter.detachSprite(self)

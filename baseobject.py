@@ -29,6 +29,7 @@ class BaseObject:
         if self.pos_x < -self.spr.dim_y: # Over the screen border
 
             self.spr.screenPrinter.log(f"Deleted object: {self.spr}")
+            # del self
             self.delete()
 
 

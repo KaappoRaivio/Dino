@@ -17,17 +17,25 @@ class Cactus(BaseObject):
         self.speed_x = speed
         self.speed_y = 0
 
+    @classmethod
+    def update(cls):
+        update_all = cls.getFrameCounter()
+        for cactus in cls.cacti:
+            if update_all:
+                cactus.updateMoving()
+
+            cactus.updateSelf()
 
 
-    def update(self):
-        if self.getFrameCounter():
-            self.updateMoving()
+    def updateSelf(self):
+
 
         self.reportCollision()
         self.delIfOverTheEdge()
 
 
     def delete(self):
+        self.cacti.remove(self)
         self.spr.delete()
         del self
 
@@ -35,7 +43,8 @@ class Cactus(BaseObject):
     @classmethod
     def getFrameCounter(cls):
         cls.__frame_counter += 1
-        return cls.__frame_counter % max(1, 10 + len(cls.cacti) - cls.speed_x_cls) in range(len(cls.cacti))
+        # return cls.__frame_counter % max(1, 10 + len(cls.cacti) - cls.speed_x_cls) in range(len(cls.cacti))
+        return cls.__frame_counter % 2 == 0
 
     @classmethod
     def changeSpeed(cls, new_speed):

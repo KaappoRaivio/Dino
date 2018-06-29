@@ -69,7 +69,10 @@ class ScreenPrinter:
         spr.setScreenPrinter(self)
 
     def updateSprites(self):
+        Cactus.update()
         for i in self.sprites:
+            if isinstance(i.object, Cactus):
+                continue
             i.object.update()
 
     def putText(self, pos_x, pos_y, text, color=colors.white):
