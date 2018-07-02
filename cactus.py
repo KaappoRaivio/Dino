@@ -19,6 +19,7 @@ class Cactus(BaseObject):
 
     @classmethod
     def update(cls):
+        # print(cls.cacti)
         update_all = cls.getFrameCounter()
         for cactus in cls.cacti:
             if update_all:
@@ -44,7 +45,7 @@ class Cactus(BaseObject):
     def getFrameCounter(cls):
         cls.__frame_counter += 1
         # return cls.__frame_counter % max(1, 10 + len(cls.cacti) - cls.speed_x_cls) in range(len(cls.cacti))
-        return cls.__frame_counter % 2 == 0
+        return cls.__frame_counter % (max(15 - cls.speed_x_cls, 1)) == 0
 
     @classmethod
     def changeSpeed(cls, new_speed):

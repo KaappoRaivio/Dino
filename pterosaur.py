@@ -45,8 +45,10 @@ class Pterosaur(BaseObject):
             return 0
 
     def delete(self):
+        Pterosaur.pterosaurs.remove(self)
         self.spr.delete()
-        # del self
+        del self
+
 
     @classmethod
     def getFrameCounter(cls):

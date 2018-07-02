@@ -1,4 +1,4 @@
-DINO_STRENGTH = 5
+DINO_STRENGTH = 10
 DINO_GRAVITY = 2
 CACTUS_PROBABILITY = 1 # in percents per frame
 CACTUS_SPAWN_GAIN = 0.0001
@@ -9,8 +9,8 @@ WINDOW_DIM_Y = 52
 CACTUS_MAX_SPEED = 4
 CACTUS_MIN_SPEED = 2
 FRAMERATE = 10000
-SPEED_GAIN = 0.0001
-DINO_COLLISION_LOGIC = False
+SPEED_GAIN = 0.01
+DINO_COLLISION_LOGIC = True
 
 import time
 import random
@@ -22,12 +22,14 @@ from cactus import Cactus
 from ScreenPrinter import ScreenPrinter
 from pterosaur import Pterosaur
 from color import colors
-
+from obstaclebuilder import ObstacleBuilder
 
 
 printer = ScreenPrinter("background.txt", term_dim_x=WINDOW_DIM_X, term_dim_y=WINDOW_DIM_Y)
 dino_spr = Sprite.fromFilePath("resources/dino/dino.txt")
-cactus_spr = Sprite.fromFilePath("resources/cactus/cactus.txt")
+# cactus_spr = Sprite.fromFilePath("resources/cactus/cactus.txt")
+
+#obstaclebuilder = ObstacleBuilder(printer, "resources/cactus/cactus.txt", "resources/pterosaur/pterosaur1.txt")
 
 printer.attachSprite(dino_spr)
 dino = Dino(dino_spr,
@@ -35,7 +37,8 @@ dino = Dino(dino_spr,
             gravity=DINO_GRAVITY,
             pos_y=WINDOW_DIM_Y - 12,
             collision_logic=DINO_COLLISION_LOGIC,
-            framerate=7)
+            framerate=6)
+
 
 cactus_sprites = []
 cacti = []
@@ -43,18 +46,22 @@ pterosaurs = []
 
 counter = 0
 latest = 0
+spacer_float = 50.0
 
 speed = 3
 
-def makeCactus(screen_printer, path):
-    cactus_sprites.append(Sprite.fromFilePath(path))
-    screen_printer.attachSprite(cactus_sprites[-1])
-    return Cactus(cactus_sprites[-1], speed=-5)
 
-def makePterosaur(screen_printer, path):
+def makeCactus(printer, path):
     temp_sprite = Sprite.fromFilePath(path)
-    screen_printer.attachSprite(temp_sprite)
+    printer.attachSprite(temp_sprite)
+    return Cactus(temp_sprite, speed=-5)
+
+
+def makePterosaur(printer, path):
+    temp_sprite = Sprite.fromFilePath(path)
+    self.screen_printer.attachSprite(temp_sprite)
     return Pterosaur(temp_sprite, speed=-5)
+
 
 
 # cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
@@ -62,6 +69,8 @@ def makePterosaur(screen_printer, path):
 
 
 while True:
+    spacer_float = max(20, spacer_float - 0.05)
+    spacer = int(spacer_float)
     printer.commit()
     printer.updateSprites()
 
@@ -69,13 +78,13 @@ while True:
 
 
 
-    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY + counter * CACTUS_SPAWN_GAIN))) and latest > 50:
-        cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
-        latest = -1
-
-    if random.randint(0, 100) in list(range(int(PTEROSAUR_PROBABILITY + counter ** PTEROSAUR_SPAWN_GAIN))) and latest > 50 and counter > 1000:
-        pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
-        latest = -1
+    # if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY + counter * CACTUS_SPAWN_GAIN))) and latest > 50:
+    #     cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
+    #     latest = -1
+    #
+    # if random.randint(0, 100) in list(ra wnge(int(PTEROSAUR_PROBABILITY + counter ** PTEROSAUR_SPAWN_GAIN))) and latest > 50 and counter > 1000:
+    #     pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
+    #     latest = -1
 
     # if latest >= 20:
     #     # pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
@@ -83,9 +92,13 @@ while True:
     #
     #     latest = -1
 
+    if random.random() < 0.05 and latest > spacer:
+        cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
+        latest = -1
 
-    # speed = 10
-    speed = int(8 + counter * SPEED_GAIN)
+
+    speed = 20
+    #speed = int(8 + counter * SPEED_GAIN)
     Cactus.changeSpeed(speed)
     Pterosaur.changeSpeed(speed)
 
@@ -103,7 +116,11 @@ while True:
     # Score
     scorestring = f"Score: {counter}"
 
+    # Spacer
+    spacerstring = f"Spacer: {spacer}"
+
     printer.putText(printer.term_dim_x - 5 - len(scorestring), 8, scorestring, color=colors.blackwhite)
+    printer.putText(printer.term_dim_x - 35 - len(spacerstring), 8, spacerstring, color=colors.blackwhite)
 
     if dino.checkForCollisions():
         # printer.putText(12, 8, "Game over!")
