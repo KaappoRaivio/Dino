@@ -1,8 +1,8 @@
-DINO_STRENGTH = 10
+DINO_STRENGTH = 6
 DINO_GRAVITY = 2
-CACTUS_PROBABILITY = 1 # in percents per frame
+CACTUS_PROBABILITY = 2 # in percents per frame
 CACTUS_SPAWN_GAIN = 0.0001
-PTEROSAUR_PROBABILITY = 2
+PTEROSAUR_PROBABILITY = 1
 PTEROSAUR_SPAWN_GAIN = 0.0001
 WINDOW_DIM_X = 229
 WINDOW_DIM_Y = 52
@@ -59,7 +59,7 @@ def makeCactus(printer, path):
 
 def makePterosaur(printer, path):
     temp_sprite = Sprite.fromFilePath(path)
-    self.screen_printer.attachSprite(temp_sprite)
+    printer.attachSprite(temp_sprite)
     return Pterosaur(temp_sprite, speed=-5)
 
 
@@ -69,7 +69,7 @@ def makePterosaur(printer, path):
 
 
 while True:
-    spacer_float = max(20, spacer_float - 0.05)
+    spacer_float = max(10, spacer_float - 0.025)
     spacer = int(spacer_float)
     printer.commit()
     printer.updateSprites()
@@ -92,8 +92,12 @@ while True:
     #
     #     latest = -1
 
-    if random.random() < 0.05 and latest > spacer:
+    if random.randint(0, 100) in list(range(int(CACTUS_PROBABILITY +  CACTUS_SPAWN_GAIN ** counter))) and latest > spacer:
         cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
+        latest = -1
+
+    if random.randint(0, 100) in list(range(int(PTEROSAUR_PROBABILITY + PTEROSAUR_SPAWN_GAIN ** counter))) and latest > spacer and counter > 1000:
+        pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
         latest = -1
 
 
