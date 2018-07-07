@@ -31,9 +31,7 @@ from color import colors
 
 printer = ScreenPrinter("background.txt", term_dim_x=WINDOW_DIM_X, term_dim_y=WINDOW_DIM_Y)
 dino_spr = Sprite.fromFilePath("resources/dino/dino.txt")
-# cactus_spr = Sprite.fromFilePath("resources/cactus/cactus.txt")
 
-#obstaclebuilder = ObstacleBuilder(printer, "resources/cactus/cactus.txt", "resources/pterosaur/pterosaur1.txt")
 
 printer.attachSprite(dino_spr)
 dino = Dino(dino_spr,
@@ -111,6 +109,7 @@ while True:
     scorestring = f"Score: {counter}"
 
     # Spacer
+
     spacerstring = f"Spacer: {cactus_spacer}"
 
     printer.putText(printer.term_dim_x - 5 - len(scorestring), 8, scorestring, color=colors.blackwhite)
