@@ -64,8 +64,6 @@ class Sprite:
 
         temp_buffer = Sprite.prepareBuffer(raw_data)
 
-
-
         return cls(temp_buffer, path_to_file=path_to_file)
 
     def getCurrentScreenBuffer(self):
@@ -130,10 +128,14 @@ class Sprite:
     def attachToObject(self, obj):
         self.object = obj
 
-    def updateSprite(self, new_buffer):
-        self.undraw()
+    def updateSprite(self, new_buffer, draw_after=True):
+        try:
+            self.undraw()
+        except Exception:
+            pass
         self.__current_buffer = new_buffer
-        self.draw(self.pos_x, self.pos_y)
+        if draw_after:
+            self.draw(self.pos_x, self.pos_y)
 
 
     def delete(self):

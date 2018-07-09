@@ -11,7 +11,6 @@ class ServerHandler(Thread):
         self.url = url
 
 
-
     def openConnection(self):
         r = requests.get(self.url + "open-connection/")
         self.conn_ID = int(r.text)
@@ -19,6 +18,9 @@ class ServerHandler(Thread):
     def refreshConnection(self):
         payload = {ID: self.conn_ID}
         return requests.post(self.url + "refresh-connection/", payload)
+
+    def reportScore(self):
+        pass
 
 
 a = ServerHandler()
