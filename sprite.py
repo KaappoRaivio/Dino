@@ -26,7 +26,7 @@ class Sprite:
             if i[1] > max_y:
                 max_y = i[1]
 
-        return max_x + 1, max_y + 1,
+        return int(max_x + 1.5), int(max_y + 1.5),
 
     @staticmethod
     def prepareBuffer(raw_data):

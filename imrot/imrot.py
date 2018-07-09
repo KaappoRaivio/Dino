@@ -31,21 +31,22 @@ class RotatingSprite(Sprite):
 
             new_x, new_y, = self.pol2cart(dist, theta)
 
-            new_x += int(self.dim_x / 2 + 0.5)
-            new_y += int(self.dim_y / 2 + 0.5)
+            new_x += round(self.dim_x / 2, 0)
+            new_y += round(self.dim_y / 2, 0)
 
-            print(x, y, new_x, new_y, self.dim_y)
+            # print(x, y, new_x, new_y, self.dim_y)
 
-            new_buffer[new_x, new_y] = self.getCurrentScreenBuffer()[int(x + self.dim_x // 2), int(y + self.dim_y // 2)]
+            new_buffer[new_x, new_y] = self.getCurrentScreenBuffer()[x + round(self.dim_x / 2, 0), y + round(self.dim_y / 2, 0)]
 
-
+        # print(self.getDimensFromScreenbuffer(new_buffer)[1])
 
         for y in range(self.getDimensFromScreenbuffer(new_buffer)[1]):
             for x in range(self.getDimensFromScreenbuffer(new_buffer)[0]):
 
                 if not (x, y,) in new_buffer:
                     # print("asd")
-                    new_buffer[x, y] = "#"
+                    # new_buffer[x, y] = "#"
+                    new_buffer[x, y] = self.getTransparentChar()
 
         # print("noasd")
         self.updateSprite(new_buffer, draw_after=False)
@@ -56,7 +57,7 @@ class RotatingSprite(Sprite):
     def getCenterOrientedBuffer(self):
         buffer = {}
         for x, y in self.getCurrentScreenBuffer():
-            buffer[x - self.dim_x // 2, y - self.dim_y // 2] = self.getCurrentScreenBuffer()[x, y]
+            buffer[x - round(self.dim_x / 2, 0), y - round(self.dim_y / 2, 0)] = self.getCurrentScreenBuffer()[x, y]
 
         return buffer
 
@@ -70,8 +71,15 @@ class RotatingSprite(Sprite):
     def pol2cart(rho, phi):
         x = rho * np.cos(phi)
         y = rho * np.sin(phi)
-        return int(x), int(y),
+        # print(x, y)
+        return int(x + 0.5) if x > 0 else int(x - 0.5), int(y + 0.5) if x > 0 else int(y - 0.5),
 
+
+# rho, phi = RotatingSprite.cart2pol(0, 5)
+# phi += np.radians(90)
+# print(RotatingSprite.pol2cart(rho, phi))
+
+# quit()
 
 
 a = RotatingSprite("asd.txt")
@@ -81,12 +89,13 @@ printer = ScreenPrinter("background.txt", term_dim_x=200, term_dim_y=20)
 
 
 printer.attachSprite(a)
-a.draw(10, 10)
+# a.draw(10, 10)
 printer.commit()
 # quit()
 
-time.sleep(1)
 
-a.rotate(180)
-a.draw(10, 10)
-printer.commit()
+while True:
+    a.draw(10, 10)
+    printer.commit()
+    a.rotate(10)
+    time.sleep(1)
