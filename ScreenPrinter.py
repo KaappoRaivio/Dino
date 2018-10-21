@@ -1,8 +1,3 @@
-import time
-
-from utils import ACoord, Logger
-from sprite import Sprite
-from dino import Dino
 from cactus import Cactus
 from color import colors
 

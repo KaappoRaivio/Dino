@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../shenanigans/3/.idea/3.iml" filepath="$PROJECT_DIR$/../shenanigans/3/.idea/3.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Dino.iml" filepath="$PROJECT_DIR$/.idea/Dino.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../dinoserver/.idea/dinoserver.iml" filepath="$PROJECT_DIR$/../dinoserver/.idea/dinoserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../packages/repos/findbyid/.idea/findbyid.iml" filepath="$PROJECT_DIR$/../packages/repos/findbyid/.idea/findbyid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../goodcalc/.idea/goodcalc.iml" filepath="$PROJECT_DIR$/../goodcalc/.idea/goodcalc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../shenanigans/.idea/shenanigans.iml" filepath="$PROJECT_DIR$/../shenanigans/.idea/shenanigans.iml" />
     </modules>
   </component>
 </project>
