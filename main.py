@@ -13,7 +13,7 @@ PTEROSAUR_SPAWN_GAIN = 0.0001
 WINDOW_DIM_X = 229
 WINDOW_DIM_Y = 52
 
-FRAMERATE = 10000
+FRAMERATE = 60
 
 SPEED_GAIN = 0.01
 
@@ -26,7 +26,7 @@ from cactus import Cactus
 from ScreenPrinter import ScreenPrinter
 from pterosaur import Pterosaur
 from color import colors
-from highscorehandler import ServerHandler
+# from highscorehandler import ServerHandler
 
 
 printer = ScreenPrinter("background.txt", term_dim_x=WINDOW_DIM_X, term_dim_y=WINDOW_DIM_Y)
@@ -71,7 +71,7 @@ def makePterosaur(printer, path):
 # cacti.append(makeCactus(printer, "resources/cactus/cactus.txt"))
 # pterosaurs.append(makePterosaur(printer, "resources/pterosaur/pterosaur1.txt"))
 
-server_handler = ServerHandler()
+# server_handler = ServerHandler()
 
 while True:
     cactus_spacer_float = max(5, cactus_spacer_float - 0.025)
@@ -127,8 +127,8 @@ while True:
         printer.attachSprite(gameover)
         gameover.draw(40, 16)
         printer.commit()
-        server_handler.reportScore(counter, input())
-        ServerHandler.stopAllThreads()
+#         server_handler.reportScore(counter, input())
+#         ServerHandler.stopAllThreads()
         quit()
 
 
